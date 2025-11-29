@@ -12,17 +12,17 @@ public class SubscriptionService {
     @Autowired
     private SubscriptionRepository repo;
 
-    public Subscription create(Subscription s) {
-        return repo.save(s);
+    public Subscription create(Subscription sub) {
+        return repo.save(sub);
     }
 
-    public Subscription update(int id, Subscription s) {
+    public Subscription update(int id, Subscription sub) {
         Subscription existing = repo.findById(id).orElseThrow();
-        existing.setName(s.getName());
-        existing.setPrice(s.getPrice());
-        existing.setDescription(s.getDescription());
-        existing.setStartDate(s.getStartDate());
-        existing.setExpDate(s.getExpDate());
+        existing.setName(sub.getName());
+        existing.setPrice(sub.getPrice());
+        existing.setDescription(sub.getDescription());
+        existing.setStartDate(sub.getStartDate());
+        existing.setExpDate(sub.getExpDate());
         return repo.save(existing);
     }
 
@@ -32,5 +32,9 @@ public class SubscriptionService {
 
     public List<Subscription> list() {
         return repo.findAll();
+    }
+
+    public boolean exists(int id) {
+        return repo.existsById(id);
     }
 }
