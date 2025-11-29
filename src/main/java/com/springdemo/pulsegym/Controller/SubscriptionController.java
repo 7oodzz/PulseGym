@@ -28,7 +28,7 @@ public class SubscriptionController {
     }
 
     @PostMapping("/create")
-    public Object create(@Valid @RequestBody Subscription sub, BindingResult bindingResult) {
+    public Object createBundle(@Valid @RequestBody Subscription sub, BindingResult bindingResult) {
         Object error = validationErrors(bindingResult);
         if(error != null) {
             return error;
@@ -37,7 +37,7 @@ public class SubscriptionController {
     }
 
     @PutMapping("/update/{id}")
-    public Object update(@PathVariable int id, @Valid @RequestBody Subscription sub, BindingResult bindingResult) {
+    public Object updateBundle(@PathVariable int id, @Valid @RequestBody Subscription sub, BindingResult bindingResult) {
         Object error = validationErrors(bindingResult);
         if(error != null) {
             return error;
@@ -46,7 +46,7 @@ public class SubscriptionController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public Object delete(@PathVariable int id) {
+    public Object deleteBundle(@PathVariable int id) {
         if(service.exists(id)) {
             service.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("{id} deleted successfully");
@@ -55,7 +55,7 @@ public class SubscriptionController {
     }
 
     @GetMapping("/list")
-    public List<Subscription> list() {
+    public List<Subscription> listBundles() {
         return service.list();
     }
 }
