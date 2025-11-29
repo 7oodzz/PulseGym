@@ -1,15 +1,9 @@
 package com.springdemo.pulsegym.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class Receptionist  {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "Receptionists")
+public class Receptionist extends User {
 
-    private String name;
 }
