@@ -22,7 +22,7 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Object login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             List<String> errors = bindingResult.getFieldErrors()
