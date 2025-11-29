@@ -25,7 +25,7 @@ public class UserService {
                 throw new IllegalArgumentException("Invalid password.");
             }
         } else {
-            throw new IllegalArgumentException("User not found with username: " + username);
+            throw new IllegalArgumentException("User not found.");
         }
 
     }
