@@ -7,12 +7,19 @@ import com.springdemo.pulsegym.Service.ReceptionistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/receptionist")
 public class ReceptionistController {
 
     @Autowired
     ReceptionistService receptionistService;
+
+    @GetMapping("/")
+    public List<Receptionist> getReceptionists(){
+        return receptionistService.getReceptionists();
+    }
 
     @PostMapping("/add")
     public Object addReceptionist(@RequestBody ReceptionistRequest request){
