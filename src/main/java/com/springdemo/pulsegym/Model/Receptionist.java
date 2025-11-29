@@ -1,4 +1,4 @@
-package com.springdemo.pulsegym.Models;
+package com.springdemo.pulsegym.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
