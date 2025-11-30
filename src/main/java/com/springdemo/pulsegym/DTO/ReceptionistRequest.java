@@ -1,14 +1,7 @@
-package com.springdemo.pulsegym.Model;
+package com.springdemo.pulsegym.DTO;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-
-@Entity
-@Table(name = "Receptionists")
-public class Receptionist extends User {
-    @NotEmpty
+public class ReceptionistRequest {
     private String name;
-    @NotEmpty
     private String ssn;
 
     public String getName() {
