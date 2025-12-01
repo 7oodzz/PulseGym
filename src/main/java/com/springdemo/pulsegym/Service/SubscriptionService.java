@@ -5,6 +5,7 @@ import com.springdemo.pulsegym.Repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,5 +37,14 @@ public class SubscriptionService {
 
     public boolean exists(int id) {
         return repo.existsById(id);
+    }
+
+    public boolean Status(int id) {
+        Date today = new Date();
+        Subscription sup = repo.findById(id).orElseThrow();
+        if(today.after(sup.getExpDate())) {
+            return false;
+        }
+        return true;
     }
 }

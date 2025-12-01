@@ -58,4 +58,12 @@ public class SubscriptionController {
     public List<Subscription> listBundles() {
         return service.list();
     }
+
+    @GetMapping("/status/{id}")
+    public Object subscriptionStatus(@PathVariable int id) {
+        if(service.exists(id)) {
+            return service.Status(id);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{id} not found");
+    }
 }
