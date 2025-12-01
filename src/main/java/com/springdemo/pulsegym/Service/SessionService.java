@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.springdemo.pulsegym.Model.Session;
 
+@Service
 public class SessionService {
        private List<Session> sessions = new ArrayList<>();
 
