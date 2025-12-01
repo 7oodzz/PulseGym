@@ -11,15 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private JwtUtil jwtUtil;
-
-    public AdminController(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    private JwtUtil jwt;
 
     @GetMapping("/dashboard")
     public ResponseEntity<String> dashboard(@RequestHeader("Authorization") String token) {
-        String type = jwtUtil.extractType(token);
+        String type = jwt.extractType(token);
         if (!"Admin".equals(type)) {
             return ResponseEntity.status(403).body("Access denied");
         }
