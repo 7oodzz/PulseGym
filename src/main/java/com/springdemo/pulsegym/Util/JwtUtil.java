@@ -1,6 +1,9 @@
 package com.springdemo.pulsegym.Util;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.springdemo.pulsegym.Model.User;
 
 import io.jsonwebtoken.Jwts;
@@ -42,4 +45,15 @@ public class JwtUtil {
             return false;
         }
     }
+
+    public void validateUserType(String token, String requiredType) {
+    if (token == null || !validate(token)) {
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+    }
+
+    String type = extractType(token);
+    if (!requiredType.equals(type)) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+    }
+}
 }
