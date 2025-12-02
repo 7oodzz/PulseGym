@@ -16,7 +16,7 @@ public class Session {
     private String sessionDate; 
     private double durationHours; 
     private Plan plan;
-      private int sessionsLeft;       
+    private int sessionsLeft;       
     private LocalDate expiryDate;    
 
     public Session() { }
