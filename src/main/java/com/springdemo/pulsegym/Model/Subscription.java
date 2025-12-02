@@ -85,4 +85,17 @@ public class Subscription {
     public int getLength() {
         return  length;
     }
+
+    @Override
+    public String toString() {
+        return "Subscription{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", expDate=" + expDate +
+                ", length=" + length +
+                '}';
+    }
 }
