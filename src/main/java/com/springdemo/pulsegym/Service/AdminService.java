@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class AdminService {
     
-    @Autowired 
+    @Autowired
     private AdminRepository adminRepo;
     @Autowired
     private PasswordEncoder encoder;
