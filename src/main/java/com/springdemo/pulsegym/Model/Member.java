@@ -54,4 +54,12 @@ public class Member {
     public Subscription getSubscription() {
         return this.subscription;
     }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
 }
