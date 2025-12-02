@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,5 +47,24 @@ public class SessionService {
     
     public boolean deleteSession(int id) {
         return sessions.removeIf(s -> s.getId() == id);
+    }
+
+    public boolean hasAvailableSessions(Session session) {
+        return session.getSessionsLeft() > 0;
+    }
+
+    public boolean isSessionExpired(Session session) {
+        return session.getExpiryDate().isBefore(LocalDate.now());
+    }
+
+     public void decrementSessionCount(Session session) {
+        if (isSessionExpired(session)) {
+            throw new IllegalStateException("Session package is expired");
+        }
+        if (!hasAvailableSessions(session)) {
+            throw new IllegalStateException("No sessions remaining");
+        }
+
+        session.setSessionsLeft(session.getSessionsLeft() - 1);   
     }
 }
