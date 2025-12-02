@@ -23,7 +23,7 @@ public class SubscriptionService {
         existing.setPrice(sub.getPrice());
         existing.setDescription(sub.getDescription());
         existing.setStartDate(sub.getStartDate());
-        existing.setExpDate(sub.getExpDate());
+        existing.setLength(sub.getLength());
         return repo.save(existing);
     }
 
@@ -39,7 +39,7 @@ public class SubscriptionService {
         return repo.existsById(id);
     }
 
-    public boolean Status(int id) {
+    public boolean status(int id) {
         Date today = new Date();
         Subscription sup = repo.findById(id).orElseThrow();
         if(today.after(sup.getExpDate())) {

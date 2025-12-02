@@ -28,7 +28,10 @@ public class Subscription {
     @NotNull(message = "Start date is required")
     private Date startDate;
 
-    @NotNull(message = "Expiration date is required")
+    @NotNull(message = "Length of subscription is required")
+    @Min(value = 0, message = "Length of subscription must be greater than zero")
+    private int length;
+
     private Date expDate;
 
     public void setId(int id) {
@@ -51,8 +54,8 @@ public class Subscription {
         this.startDate = startDate;
     }
 
-    public void setExpDate(Date expDate) {
-        this.expDate = expDate;
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public int getId() {
@@ -77,5 +80,9 @@ public class Subscription {
 
     public Date getExpDate() {
         return expDate;
+    }
+
+    public int getLength() {
+        return  length;
     }
 }
