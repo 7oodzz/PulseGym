@@ -28,7 +28,7 @@ public class ReceptionistController {
         if (!"Receptionist".equals(type)) {
             return ResponseEntity.status(403).body("Access denied");
         }
-        return ResponseEntity.ok("Welcome Admin!");
+        return ResponseEntity.ok("Welcome Receptionist!");
     }
 
     @Autowired
@@ -73,6 +73,6 @@ public class ReceptionistController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
        receptionistService.deleteReceptionist(ssn);
-        return ("Receptionist Deleted successfully");
+        return ResponseEntity.ok("Receptionist Deleted successfully");
     }
 }
