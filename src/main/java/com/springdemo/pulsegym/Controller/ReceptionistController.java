@@ -24,10 +24,7 @@ public class ReceptionistController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<String> dashboard(@RequestHeader("Authorization") String token) {
-        String type = jwt.extractType(token);
-        if (!"Receptionist".equals(type)) {
-            return ResponseEntity.status(403).body("Access denied");
-        }
+        jwt.validateUserType(token, "receptionist");
         return ResponseEntity.ok("Welcome Receptionist!");
     }
 
