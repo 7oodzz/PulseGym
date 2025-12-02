@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springdemo.pulsegym.Model.Session;
 import com.springdemo.pulsegym.Service.SessionService;
 
+
 @RestController
 @RequestMapping("/sessions")
 public class SessionController {
 
-    private final SessionService sessionService;
+    private SessionService sessionService;
 
     public SessionController(SessionService sessionService) {
         this.sessionService = sessionService;
@@ -48,5 +49,28 @@ public class SessionController {
     @DeleteMapping("/{id}")
     public boolean deleteSession(@PathVariable int id) {
         return sessionService.deleteSession(id);
+    }
+
+     @PostMapping("/{id}/use")
+    public String useASession(@PathVariable int id) {
+
+        Session session = sessionService.getSessionById(id);
+
+        if (session == null) {
+            return "error: session not found";
+        }
+
+        if (sessionService.isSessionExpired(session)) {
+            return "error: session expired";
+        }
+
+        if (!sessionService.hasAvailableSessions(session)) {
+            return "error: no sessions left";
+        }
+
+    
+        sessionService.decrementSessionCount(session);
+
+        return "session used successfully";
     }
 }

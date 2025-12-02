@@ -57,14 +57,16 @@ public class SessionService {
         return session.getExpiryDate().isBefore(LocalDate.now());
     }
 
-     public void decrementSessionCount(Session session) {
-        if (isSessionExpired(session)) {
-            throw new IllegalStateException("Session package is expired");
-        }
-        if (!hasAvailableSessions(session)) {
-            throw new IllegalStateException("No sessions remaining");
-        }
-
-        session.setSessionsLeft(session.getSessionsLeft() - 1);   
+    public boolean decrementSessionCount(Session session) {
+    if (isSessionExpired(session)) {
+        return false;
     }
+    if (!hasAvailableSessions(session)) {
+        return false;
+    }
+
+    session.setSessionsLeft(session.getSessionsLeft() - 1);
+    return true;
+}
+
 }
