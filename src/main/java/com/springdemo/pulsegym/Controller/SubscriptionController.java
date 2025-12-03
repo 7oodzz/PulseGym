@@ -62,7 +62,7 @@ public class SubscriptionController {
     @GetMapping("/status/{id}")
     public Object subscriptionStatus(@PathVariable int id) {
         if(service.exists(id)) {
-            return service.Status(id);
+            return service.status(id);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{id} not found");
     }

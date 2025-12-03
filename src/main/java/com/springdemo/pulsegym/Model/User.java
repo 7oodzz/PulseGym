@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Model;
 
+
 import jakarta.persistence.*;
 
 @Entity
