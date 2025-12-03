@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 @Entity
-public class Subscription {
+public class SubscriptionBundle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,14 +25,11 @@ public class Subscription {
     @Size(max = 255, message = "Description must be less than 255 characters")
     private String description;
 
-    @NotNull(message = "Start date is required")
-    private Date startDate;
-
     @NotNull(message = "Length of subscription is required")
     @Min(value = 0, message = "Length of subscription must be greater than zero")
-    private int length;
+    private int durationInMonth;
 
-    private Date expDate;
+
 
     public void setId(int id) {
         this.id = id;
@@ -50,12 +47,9 @@ public class Subscription {
         this.description = description;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setDurationInMonth(int durationInMonth) {
+        this.durationInMonth = durationInMonth ;
     }
 
     public int getId() {
@@ -74,15 +68,7 @@ public class Subscription {
         return description;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public Date getExpDate() {
-        return expDate;
-    }
-
-    public int getLength() {
-        return  length;
+    public int getDurationInMonth() {
+        return  durationInMonth;
     }
 }

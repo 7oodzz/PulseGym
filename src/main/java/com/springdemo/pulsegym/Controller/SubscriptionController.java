@@ -1,6 +1,6 @@
 package com.springdemo.pulsegym.Controller;
 
-import com.springdemo.pulsegym.Model.Subscription;
+import com.springdemo.pulsegym.Model.SubscriptionBundle;
 import com.springdemo.pulsegym.Service.SubscriptionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class SubscriptionController {
     }
 
     @PostMapping("/create")
-    public Object createBundle(@Valid @RequestBody Subscription sub, BindingResult bindingResult) {
+    public Object createBundle(@Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
         Object error = validationErrors(bindingResult);
         if(error != null) {
             return error;
@@ -37,7 +37,7 @@ public class SubscriptionController {
     }
 
     @PutMapping("/update/{id}")
-    public Object updateBundle(@PathVariable int id, @Valid @RequestBody Subscription sub, BindingResult bindingResult) {
+    public Object updateBundle(@PathVariable int id, @Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
         Object error = validationErrors(bindingResult);
         if(error != null) {
             return error;
@@ -55,15 +55,9 @@ public class SubscriptionController {
     }
 
     @GetMapping("/list")
-    public List<Subscription> listBundles() {
+    public List<SubscriptionBundle> listBundles() {
         return service.list();
     }
 
-    @GetMapping("/status/{id}")
-    public Object subscriptionStatus(@PathVariable int id) {
-        if(service.exists(id)) {
-            return service.status(id);
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{id} not found");
-    }
+
 }

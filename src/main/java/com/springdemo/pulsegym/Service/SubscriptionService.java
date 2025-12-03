@@ -1,6 +1,6 @@
 package com.springdemo.pulsegym.Service;
 
-import com.springdemo.pulsegym.Model.Subscription;
+import com.springdemo.pulsegym.Model.SubscriptionBundle;
 import com.springdemo.pulsegym.Repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,17 +13,16 @@ public class SubscriptionService {
     @Autowired
     private SubscriptionRepository repo;
 
-    public Subscription create(Subscription sub) {
+    public SubscriptionBundle create(SubscriptionBundle sub) {
         return repo.save(sub);
     }
 
-    public Subscription update(int id, Subscription sub) {
-        Subscription existing = repo.findById(id).orElseThrow();
+    public SubscriptionBundle update(int id, SubscriptionBundle sub) {
+        SubscriptionBundle existing = repo.findById(id).orElseThrow();
         existing.setName(sub.getName());
         existing.setPrice(sub.getPrice());
         existing.setDescription(sub.getDescription());
-        existing.setStartDate(sub.getStartDate());
-        existing.setLength(sub.getLength());
+        existing.setDurationInMonth(sub.getDurationInMonth());
         return repo.save(existing);
     }
 
@@ -31,7 +30,7 @@ public class SubscriptionService {
         repo.deleteById(id);
     }
 
-    public List<Subscription> list() {
+    public List<SubscriptionBundle> list() {
         return repo.findAll();
     }
 
@@ -39,12 +38,4 @@ public class SubscriptionService {
         return repo.existsById(id);
     }
 
-    public boolean status(int id) {
-        Date today = new Date();
-        Subscription sup = repo.findById(id).orElseThrow();
-        if(today.after(sup.getExpDate())) {
-            return false;
-        }
-        return true;
-    }
 }

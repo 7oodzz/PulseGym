@@ -17,11 +17,10 @@ public class Member {
             message = "Invalid Egyptian phone number format"
     )
     private String phoneNo;
-
+    private boolean hasSubscription;
+    private boolean hasSession;
     @NotEmpty(message = "Member name can't be empty")
     private String name;
-    private Subscription subscription;
-    private Session session;
 
     public void setId(int id) {
         this.id = id;
@@ -46,20 +45,23 @@ public class Member {
     public String getPhoneNo() {
         return this.phoneNo;
     }
-
-    public void setSubscription(Subscription subscription) {
-        this.subscription = subscription;
+     public void setHasSession(boolean hasSession){
+        this.hasSession=hasSession;
+     }
+     public boolean getHasSession(){
+        return this.hasSession;
+     }
+     public boolean getHasSubscription(){
+        return this.hasSubscription;
+     }
+    public void setHasSubscription(boolean hasSubscription){
+        this.hasSubscription=hasSubscription;
     }
 
-    public Subscription getSubscription() {
-        return this.subscription;
-    }
 
-    public Session getSession() {
-        return session;
-    }
 
-    public void setSession(Session session) {
-        this.session = session;
-    }
+
+
+
+
 }

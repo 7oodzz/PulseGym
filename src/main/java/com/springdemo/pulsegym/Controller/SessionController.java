@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springdemo.pulsegym.Model.Session;
+import com.springdemo.pulsegym.Model.SessionBundle;
 import com.springdemo.pulsegym.Service.SessionService;
 
 
@@ -26,23 +26,23 @@ public class SessionController {
     }
 
     @PostMapping
-    public void addSession(@RequestBody Session session) {
+    public void addSession(@RequestBody SessionBundle session) {
         sessionService.addSession(session);
     }
 
     @GetMapping
-    public List<Session> getAllSessions() {
+    public List<SessionBundle> getAllSessions() {
         return sessionService.getAllSessions();
     }
 
     // Read by id
     @GetMapping("/{id}")
-    public Session getSessionById(@PathVariable int id) {
+    public SessionBundle getSessionById(@PathVariable int id) {
         return sessionService.getSessionById(id);
     }
 
     @PutMapping("/{id}")
-    public boolean updateSession(@PathVariable int id, @RequestBody Session updatedSession) {
+    public boolean updateSession(@PathVariable int id, @RequestBody SessionBundle updatedSession) {
         return sessionService.updateSession(id, updatedSession);
     }
 
@@ -54,7 +54,7 @@ public class SessionController {
      @PostMapping("/{id}/use")
     public String useASession(@PathVariable int id) {
 
-        Session session = sessionService.getSessionById(id);
+        SessionBundle session = sessionService.getSessionById(id);
 
         if (session == null) {
             return "error: session not found";

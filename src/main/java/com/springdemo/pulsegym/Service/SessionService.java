@@ -7,25 +7,25 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.springdemo.pulsegym.Model.Session;
+import com.springdemo.pulsegym.Model.SessionBundle;
 
 @Service
 public class SessionService {
-       private List<Session> sessions = new ArrayList<>();
+       private List<SessionBundle> sessions = new ArrayList<>();
 
    
-    public void addSession(Session session) {
+    public void addSession(SessionBundle session) {
         sessions.add(session);
     }
 
 
-    public List<Session> getAllSessions() {
+    public List<SessionBundle> getAllSessions() {
         return sessions;
     }
 
   
-    public Session getSessionById(int id) {
-        Optional<Session> result = sessions
+    public SessionBundle getSessionById(int id) {
+        Optional<SessionBundle> result = sessions
                 .stream()
                 .filter(s -> s.getId() == id)
                 .findFirst();
@@ -33,7 +33,7 @@ public class SessionService {
     }
 
    
-    public boolean updateSession(int id, Session updatedSession) {
+    public boolean updateSession(int id, SessionBundle updatedSession) {
         for (int i = 0; i < sessions.size(); i++) {
             if (sessions.get(i).getId() == id) {
                 updatedSession.setId(id); 
@@ -49,15 +49,15 @@ public class SessionService {
         return sessions.removeIf(s -> s.getId() == id);
     }
 
-    public boolean hasAvailableSessions(Session session) {
+    public boolean hasAvailableSessions(SessionBundle session) {
         return session.getSessionsLeft() > 0;
     }
 
-    public boolean isSessionExpired(Session session) {
+    public boolean isSessionExpired(SessionBundle session) {
         return session.getExpiryDate().isBefore(LocalDate.now());
     }
 
-    public boolean decrementSessionCount(Session session) {
+    public boolean decrementSessionCount(SessionBundle session) {
     if (isSessionExpired(session)) {
         return false;
     }
