@@ -2,9 +2,9 @@ package com.springdemo.pulsegym.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.springdemo.pulsegym.Model.Session;
-import com.springdemo.pulsegym.Model.Subscription;
+import com.springdemo.pulsegym.Model.SessionBundle;
+import com.springdemo.pulsegym.Model.SubscriptionBundle;
 
-public interface SessionRepository extends JpaRepository<Session, Integer> {
+public interface SessionRepository extends JpaRepository<SessionBundle, Integer> {
 }
 

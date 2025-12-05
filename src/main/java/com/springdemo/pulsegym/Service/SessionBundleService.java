@@ -1,6 +1,7 @@
 package com.springdemo.pulsegym.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.springdemo.pulsegym.Model.SessionBundle;
 
 @Service
-public class SessionService {
+public class SessionBundleService {
        private List<SessionBundle> sessions = new ArrayList<>();
 
    
@@ -48,9 +49,9 @@ public class SessionService {
         return sessions.removeIf(s -> s.getId() == id);
     }
 
-    public boolean hasAvailableSessions(SessionBundle session) {
+   /*  public boolean hasAvailableSessions(SessionBundle session) {
         return session.getSessionsLeft() > 0;
-    }
+    }*/
 
     public boolean isSessionExpired(SessionBundle session) {
         return session.getExpiryDate().isBefore(LocalDate.now());
@@ -60,7 +61,7 @@ public class SessionService {
     if (isSessionExpired(session)) {
         return false;
     }
-    if (!hasAvailableSessions(session)) {
+  /*   if (!hasAvailableSessions(session)) {
         return false;
     }
 
@@ -68,4 +69,5 @@ public class SessionService {
     return true;
 }*/
 
+}
 }
