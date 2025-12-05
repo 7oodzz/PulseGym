@@ -1,9 +1,7 @@
 package com.springdemo.pulsegym.Model;
 
 import java.time.LocalDate;
-
 import org.springframework.data.annotation.Id;
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -11,23 +9,17 @@ public class SessionBundle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String memberName; 
-    private String sessionDate; 
     private double durationHours; 
     private Plan plan;
-    private int sessionsLeft;       
+    private int NumberOfSessions;       
     private LocalDate expiryDate;    
 
     public SessionBundle() { }
 
     public SessionBundle(int id, String memberName, String sessionDate, double durationHours, Plan plan , int sessionsLeft, LocalDate expiryDate) {
         this.id = id;
-        this.memberName = memberName;
-        this.sessionDate = sessionDate;
         this.durationHours = durationHours;
-        this.sessionsLeft = sessionsLeft;
-        this.expiryDate = expiryDate;
+        this.NumberOfSessions = NumberOfSessions;
     }
 
     public void setId(int id) 
@@ -38,22 +30,6 @@ public class SessionBundle {
     { 
         return id;
     }
-    public void setClientName(String memberName)
-    { 
-        this.memberName = memberName; 
-    }
-    public String getmemberName() 
-    {
-        return memberName; 
-    }
-    public void setSessionDate(String sessionDate)
-    { 
-        this.sessionDate = sessionDate;
-    }
-    public String getSessionDate() 
-    { 
-        return sessionDate; 
-    }
     public void setDurationHours(double durationHours)
     { 
         this.durationHours = durationHours; 
@@ -63,12 +39,12 @@ public class SessionBundle {
     { 
         return durationHours; 
     }
-  public int getSessionsLeft() {
-        return sessionsLeft;
+  public int getNumberOfSessions() {
+        return NumberOfSessions;
     }
 
-    public void setSessionsLeft(int sessionsLeft) {
-        this.sessionsLeft = sessionsLeft;
+    public void setSessionsLeft(int NumberOfSessions) {
+        this.NumberOfSessions = NumberOfSessions;
     }
 
     public LocalDate getExpiryDate() {
@@ -86,8 +62,6 @@ public class SessionBundle {
     public String toString() {
         return "PrivateSession{" +
                 "id=" + id +
-                ", memberName='" + memberName + '\'' +
-                ", sessionDate='" + sessionDate + '\'' +
                 ", durationHours=" + durationHours +
                 '}';
     }
