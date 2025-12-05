@@ -1,55 +1,44 @@
 package com.springdemo.pulsegym.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.springdemo.pulsegym.Model.Session;
+import com.springdemo.pulsegym.Repository.SessionRepository;
 
 @Service
 public class SessionService {
-       private List<Session> sessions = new ArrayList<>();
-
+    @Autowired
+    private SessionRepository repo;
    
     public void addSession(Session session) {
-        sessions.add(session);
+        repo.save(session);
     }
 
 
     public List<Session> getAllSessions() {
-        return sessions;
+        return repo.findAll();
     }
 
   
-    public Session getSessionById(int id) {
+  /*  public Session getSessionById(int id) {
         Optional<Session> result = sessions
                 .stream()
                 .filter(s -> s.getId() == id)
                 .findFirst();
         return result.orElse(null);
-    }
+    }*/
 
-   
-    public boolean updateSession(int id, Session updatedSession) {
-        for (int i = 0; i < sessions.size(); i++) {
-            if (sessions.get(i).getId() == id) {
-                updatedSession.setId(id); 
-                sessions.set(i, updatedSession);
-                return true;
-            }
-        }
-        return false;
-    }
 
     
-    public boolean deleteSession(int id) {
-        return sessions.removeIf(s -> s.getId() == id);
+    public void deleteSession(int id) {
+        repo.deleteById(id);
     }
 
-    public boolean hasAvailableSessions(Session session) {
+
+ /*   public boolean hasAvailableSessions(Session session) {
         return session.getSessionsLeft() > 0;
     }
 
@@ -67,6 +56,6 @@ public class SessionService {
 
     session.setSessionsLeft(session.getSessionsLeft() - 1);
     return true;
-}
+}*/
 
 }
