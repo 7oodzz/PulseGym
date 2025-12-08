@@ -19,7 +19,7 @@ public class SessionBundle {
     private int NumberOfSessions;       
     private String sessionDate;    
 
-    public Session() {
+    public SessionBundle() {
     }
 
     
@@ -40,14 +40,6 @@ public class SessionBundle {
         return id;
     }
 
-    public void setClientName(String memberName) {
-        this.memberName = memberName;
-    }
-
-    public String getmemberName() {
-        return memberName;
-    }
-
     public void setSessionDate(String sessionDate) {
         this.sessionDate = sessionDate;
     }
@@ -64,8 +56,8 @@ public class SessionBundle {
         return durationHours;
     }
 
-    public int getSessionsLeft() {
-        return sessionsLeft;
+    public int getNumberOfSessions() {
+        return NumberOfSessions;
     }
 
     public void setNumberOfSessions(int NumberOfSessions) {
@@ -78,14 +70,7 @@ public class SessionBundle {
     public void setDescription(String description) {
         this.description = description;
     }
-     public String getSessionDate() {
-        return sessionDate;
-    }
-
-    public void setSessionDate(String sessionDate) {
-        this.sessionDate = sessionDate;
-    }
-
+ 
     public Plan getPlan() { return plan; }
     
     public void setPlan(Plan plan) { this.plan = plan; }
