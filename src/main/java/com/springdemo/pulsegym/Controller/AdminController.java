@@ -25,6 +25,8 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
     private JwtUtil jwt;
 
     @GetMapping("/dashboard")

@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Service;
 
+import com.springdemo.pulsegym.DTO.ReceptionistRequest;
 import com.springdemo.pulsegym.Model.Receptionist;
 import com.springdemo.pulsegym.Repository.ReceptionistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,30 +20,32 @@ public class ReceptionistService {
         this.receptionistRepo = receptionistRepo;
     }
 
-    public List<Receptionist> getReceptionists(){
+    public List<Receptionist> getReceptionists() {
         return receptionistRepo.findAll();
     }
 
-    public Receptionist addReceptionist(String name ,String ssn) {
-        if(receptionistRepo.findBySsn(ssn).isPresent()){
-            throw new IllegalStateException("Receptionist is already exist with this ssn "+ssn);
+    public Receptionist addReceptionist(ReceptionistRequest recepReq) {
+        if (receptionistRepo.findBySsn(recepReq.getSsn()).isPresent()) {
+            throw new IllegalStateException("Receptionist is already exist with this ssn " + recepReq.getSsn());
         }
         Receptionist rec = new Receptionist();
-        rec.setName(name);
-        rec.setSsn(ssn);
+        rec.setUsername(recepReq.getUsername());
+        rec.setPassword(recepReq.getPassword());
+        rec.setName(recepReq.getName());
+        rec.setSsn(recepReq.getSsn());
         return receptionistRepo.save(rec);
     }
 
     public Receptionist updateReceptionist(String ssn, Receptionist updated) {
         Receptionist original = receptionistRepo.findBySsn(ssn)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
-        original.setPassword(updated.getName());
+        original.setPassword(updated.getPassword());
         original.setSsn(updated.getSsn());
         return receptionistRepo.save(original);
     }
 
     public void deleteReceptionist(String ssn) {
-        if(!receptionistRepo.findBySsn(ssn).isPresent()){
+        if (!receptionistRepo.findBySsn(ssn).isPresent()) {
             throw new IllegalStateException("Receptionist does not exist");
         }
         receptionistRepo.deleteBySsn(ssn);

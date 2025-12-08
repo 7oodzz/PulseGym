@@ -3,8 +3,8 @@ package com.springdemo.pulsegym.Model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-import org.springframework.data.annotation.Id;
 
 @Entity
 public class SubscriptionBundle {

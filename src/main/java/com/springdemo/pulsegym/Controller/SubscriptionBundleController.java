@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/subscriptions")
-public class SubscriptionController {
+public class SubscriptionBundleController {
     @Autowired
     private SubscriptionService service;
 

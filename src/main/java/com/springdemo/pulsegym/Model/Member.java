@@ -1,4 +1,5 @@
 package com.springdemo.pulsegym.Model;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -7,7 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-@Table(name="members")
+@Table(name = "members")
 public class Member {
     @Id
     @GeneratedValue
@@ -21,6 +22,10 @@ public class Member {
     private boolean hasSession;
     @NotEmpty(message = "Member name can't be empty")
     private String name;
+
+    public Member() {
+
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -45,23 +50,39 @@ public class Member {
     public String getPhoneNo() {
         return this.phoneNo;
     }
-     public void setHasSession(boolean hasSession){
-        this.hasSession=hasSession;
-     }
-     public boolean getHasSession(){
-        return this.hasSession;
-     }
-     public boolean getHasSubscription(){
-        return this.hasSubscription;
-     }
-    public void setHasSubscription(boolean hasSubscription){
-        this.hasSubscription=hasSubscription;
+
+    public void setHasSession(boolean hasSession) {
+        this.hasSession = hasSession;
     }
 
+    public boolean getHasSession() {
+        return this.hasSession;
+    }
 
+    public boolean getHasSubscription() {
+        return this.hasSubscription;
+    }
 
+    public void setHasSubscription(boolean hasSubscription) {
+        this.hasSubscription = hasSubscription;
+    }
 
+    public Member(int id, String phoneNo, String name) {
+        this.id = id;
+        this.phoneNo = phoneNo;
+        this.hasSubscription = false;
+        this.hasSession = false;
+        this.name = name;
+    }
 
-
-
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", hasSubscription=" + hasSubscription +
+                ", hasSession=" + hasSession +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
