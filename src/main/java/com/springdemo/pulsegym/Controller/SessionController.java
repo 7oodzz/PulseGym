@@ -23,10 +23,11 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/sessions")
+@RequestMapping("/admin/sessionBundles")
 public class SessionController {
+
     @Autowired
-    private final SessionBundleService sessionService;
+    private SessionBundleService sessionService;
 
     public SessionController(SessionBundleService sessionService) {
         this.sessionService = sessionService;
@@ -39,8 +40,8 @@ public class SessionController {
         }
         return null;
     }
-    @PostMapping("/create")
-    public Object create(@Valid @RequestBody SessionBundle session,BindingResult bindingResult) {
+    @PostMapping("/createSessionBundle")
+    public Object createSessionBundle(@Valid @RequestBody SessionBundle session,BindingResult bindingResult) {
          Object error = validationErrors(bindingResult);
           if(error != null) {
             return error;
@@ -49,12 +50,12 @@ public class SessionController {
     }
 
     @GetMapping
-    public List<SessionBundle> getAllSessions() {
+    public List<SessionBundle> getAllSessionBundles() {
         return sessionService.list();
     }
 
-    @PutMapping("/update/{id}")
-    public Object updateBundle(@PathVariable int id, @Valid @RequestBody SessionBundle session, BindingResult bindingResult) {
+    @PutMapping("/updateSessionBundle/{id}")
+    public Object updateSessionBundle(@PathVariable int id, @Valid @RequestBody SessionBundle session, BindingResult bindingResult) {
         Object error = validationErrors(bindingResult);
         if(error != null) {
             return error;
@@ -63,8 +64,8 @@ public class SessionController {
     }
 
 
-     @DeleteMapping("/delete/{id}")
-    public Object deleteBundle(@PathVariable int id) {
+     @DeleteMapping("/deleteSessionBundle/{id}")
+    public Object deleteSessionBundle(@PathVariable int id) {
         if(sessionService.exists(id)) {
             sessionService.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("{id} deleted successfully");

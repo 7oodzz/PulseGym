@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/receptionist/member")
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
     @PostMapping("/addMember")
     public Object addMember(@Valid @RequestBody Member member, BindingResult bindingResult){
        if(bindingResult.hasErrors()) {

@@ -2,7 +2,6 @@ package com.springdemo.pulsegym.Controller;
 
 import com.springdemo.pulsegym.Model.Admin;
 import com.springdemo.pulsegym.Service.AdminService;
-import com.springdemo.pulsegym.Util.JwtUtil;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,15 +24,6 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-
-    @Autowired
-    private JwtUtil jwt;
-
-    @GetMapping("/dashboard")
-    public ResponseEntity<String> dashboard(@RequestHeader("Authorization") String token) {
-        jwt.validateUserType(token, "admin");
-        return ResponseEntity.ok("Welcome Admin!");
-    }
 
     @PostMapping("/create")
     public Object createAdmin(@Valid @RequestBody Admin admin,BindingResult bindingResult ) {

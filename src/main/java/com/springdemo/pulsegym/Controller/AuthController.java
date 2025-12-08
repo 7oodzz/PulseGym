@@ -43,6 +43,7 @@ public class AuthController {
         try {
             User user = userService.login(request.getUsername(), request.getPassword());
             String token = jwt.generateToken(user);
+            
             return ResponseEntity.ok(Map.of("token", token));
 
         } catch (IllegalArgumentException e) {

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/subscriptions")
+@RequestMapping("/admin/subscriptionBundles")
 public class SubscriptionBundleController {
     @Autowired
     private SubscriptionService service;
@@ -27,8 +27,8 @@ public class SubscriptionBundleController {
         return null;
     }
 
-    @PostMapping("/create")
-    public Object createBundle(@Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
+    @PostMapping("/createSubBundle")
+    public Object createSubscriptionBundle(@Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
         Object error = validationErrors(bindingResult);
         if(error != null) {
             return error;
@@ -36,8 +36,8 @@ public class SubscriptionBundleController {
         return service.create(sub);
     }
 
-    @PutMapping("/update/{id}")
-    public Object updateBundle(@PathVariable int id, @Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
+    @PutMapping("/updateSubBundle/{id}")
+    public Object updateSubscriptionBundle(@PathVariable int id, @Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
         Object error = validationErrors(bindingResult);
         if(error != null) {
             return error;
@@ -45,8 +45,8 @@ public class SubscriptionBundleController {
         return service.update(id, sub);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public Object deleteBundle(@PathVariable int id) {
+    @DeleteMapping("/deleteSubBundle/{id}")
+    public Object deleteSubscriptionBundle(@PathVariable int id) {
         if(service.exists(id)) {
             service.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("{id} deleted successfully");
@@ -54,8 +54,8 @@ public class SubscriptionBundleController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{id} not found");
     }
 
-    @GetMapping("/list")
-    public List<SubscriptionBundle> listBundles() {
+    @GetMapping("/listSubBundles")
+    public List<SubscriptionBundle> listSubscriptionBundles() {
         return service.list();
     }
 

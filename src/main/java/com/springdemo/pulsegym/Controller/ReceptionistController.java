@@ -1,6 +1,5 @@
 package com.springdemo.pulsegym.Controller;
 
-import com.springdemo.pulsegym.Util.JwtUtil;
 import com.springdemo.pulsegym.DTO.ReceptionistRequest;
 import com.springdemo.pulsegym.Model.Receptionist;
 import com.springdemo.pulsegym.Service.ReceptionistService;
@@ -10,24 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/receptionist")
+@RequestMapping("/admin")
 public class ReceptionistController {
-
-    @Autowired
-    private JwtUtil jwt;
-
-    @GetMapping("/dashboard")
-    public ResponseEntity<String> dashboard(@RequestHeader("Authorization") String token) {
-        jwt.validateUserType(token, "receptionist");
-        return ResponseEntity.ok("Welcome Receptionist!");
-    }
 
     @Autowired
     ReceptionistService receptionistService;
@@ -37,7 +26,7 @@ public class ReceptionistController {
         return receptionistService.getReceptionists();
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addRecep")
     public Object addReceptionist(@Valid @RequestBody ReceptionistRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
@@ -49,7 +38,7 @@ public class ReceptionistController {
         return receptionistService.addReceptionist(request);
     }
 
-    @PutMapping("/update/{ssn}")
+    @PutMapping("/updateRecep/{ssn}")
     public Object updateReceptionist(@Valid @PathVariable("ssn") String ssn, @RequestBody Receptionist receptionist, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
@@ -61,7 +50,7 @@ public class ReceptionistController {
         return receptionistService.updateReceptionist(ssn, receptionist);
     }
 
-    @DeleteMapping("/delete/{ssn}")
+    @DeleteMapping("/deleteRecep/{ssn}")
     public Object deleteReceptionist(@Valid @PathVariable("ssn") String ssn, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
