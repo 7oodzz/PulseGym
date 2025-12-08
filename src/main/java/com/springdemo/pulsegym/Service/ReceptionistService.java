@@ -5,6 +5,7 @@ import com.springdemo.pulsegym.Model.Receptionist;
 import com.springdemo.pulsegym.Repository.ReceptionistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class ReceptionistService {
 
     @Autowired
     private final ReceptionistRepository receptionistRepo;
+    @Autowired
+    private PasswordEncoder encoder;
 
 
     public ReceptionistService(ReceptionistRepository receptionistRepo) {
@@ -30,7 +33,7 @@ public class ReceptionistService {
         }
         Receptionist rec = new Receptionist();
         rec.setUsername(recepReq.getUsername());
-        rec.setPassword(recepReq.getPassword());
+        rec.setPassword(encoder.encode(recepReq.getPassword()));
         rec.setName(recepReq.getName());
         rec.setSsn(recepReq.getSsn());
         return receptionistRepo.save(rec);
@@ -39,7 +42,7 @@ public class ReceptionistService {
     public Receptionist updateReceptionist(String ssn, Receptionist updated) {
         Receptionist original = receptionistRepo.findBySsn(ssn)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
-        original.setPassword(updated.getPassword());
+        original.setPassword(encoder.encode(updated.getPassword()));
         original.setSsn(updated.getSsn());
         return receptionistRepo.save(original);
     }

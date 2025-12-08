@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +43,7 @@ public class AdminController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deleteAdmin(@RequestHeader("Authorization") String token, @PathVariable Long id) {
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {
         adminService.deleteAdmin(id);
         return ResponseEntity.ok("Admin deleted successfully");
     }
