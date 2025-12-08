@@ -18,7 +18,7 @@ public class SessionBundleService {
 
     public SessionBundle update(int id, SessionBundle x) {
         SessionBundle existing = repo.findById(id).orElseThrow();
-        existing.setNumberOfSessions(x.getNumberOfSessions());
+        existing.setSessionsLeft(x.getSessionsLeft());
         existing.setSessionDate(x.getSessionDate());
         existing.setPlan(x.getPlan());      
         return repo.save(existing);

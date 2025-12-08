@@ -19,14 +19,12 @@ public class SessionBundle {
     private int sessionsLeft;
     private LocalDate expiryDate;
 
-    public Session() {
-    }
-
-    public Session(int id, String memberName, String sessionDate, double durationHours, Plan plan, int sessionsLeft, LocalDate expiryDate) {
+    public SessionBundle(int id, String memberName, String sessionDate, double durationHours, Plan plan, int sessionsLeft, LocalDate expiryDate) {
         this.id = id;
         this.memberName = memberName;
         this.sessionDate = sessionDate;
         this.durationHours = durationHours;
+        this.plan = plan;
         this.sessionsLeft = sessionsLeft;
         this.expiryDate = expiryDate;
     }

@@ -1,8 +1,6 @@
 package com.springdemo.pulsegym.Model;
 
 import jakarta.persistence.*;
-import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Entity

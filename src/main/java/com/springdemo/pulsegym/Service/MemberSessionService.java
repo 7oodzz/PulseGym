@@ -37,7 +37,7 @@ public class MemberSessionService {
         MemberSession ms = new MemberSession();
         ms.setSessionBundleId(sessionBundle.getId());
         ms.setMemberId(member.getId());
-        ms.setSessionsLeft(sessionBundle.getNumberOfSessions());
+        ms.setSessionsLeft(sessionBundle.getSessionsLeft());
         member.setHasSession(true);
         return memberSessionRepo.save(ms);
     }
