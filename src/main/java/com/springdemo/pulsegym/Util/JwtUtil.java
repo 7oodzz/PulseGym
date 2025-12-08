@@ -47,13 +47,13 @@ public class JwtUtil {
     }
 
     public void validateUserType(String token, String requiredType) {
-    if (token == null || !validate(token)) {
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
-    }
 
-    String type = extractType(token);
-    if (!requiredType.equals(type)) {
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
-    }
+        if (token == null || !validate(token)) 
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+
+        String type = extractType(token);
+        if (!requiredType.equals(type)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        }
 }
 }

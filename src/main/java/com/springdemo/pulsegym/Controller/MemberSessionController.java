@@ -45,7 +45,7 @@ import jakarta.validation.Valid;
         return memberSessionService.listMemberSessions();
     }
     @DeleteMapping("removeMemberSession/{memberSessionId}")
-    public ResponseEntity removeMemberSession(@PathVariable int memberSessionId){
+    public ResponseEntity<String> removeMemberSession(@PathVariable int memberSessionId){
         memberSessionService.removeSessionFromMember(memberSessionId);
         return ResponseEntity.ok("member's subscription with id: " + memberSessionId + "deleted succefully" );
     }

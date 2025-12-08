@@ -39,7 +39,7 @@ public class MemberSubscribtionController {
         return memberSubscriptionService.listMemberSubscriptions();
     }
     @DeleteMapping("removeMemberSubscribtion/{memberSubId}")
-    public ResponseEntity removeMemberSubscription(@PathVariable int memberSubId){
+    public ResponseEntity<String> removeMemberSubscription(@PathVariable int memberSubId){
         memberSubscriptionService.removeSubFromUser(memberSubId);
         return ResponseEntity.ok("member's subscription with id: " + memberSubId + "deleted succefully" );
     }

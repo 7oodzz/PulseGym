@@ -6,8 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 
-import java.util.Date;
-
 @Entity
 public class SubscriptionBundle {
     @Id
@@ -74,14 +72,12 @@ public class SubscriptionBundle {
 
     @Override
     public String toString() {
-        return "Subscription{" +
+        return "SubscriptionBundle{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", expDate=" + expDate +
-                ", length=" + length +
+                ", durationInMonth=" + durationInMonth +
                 '}';
     }
 }

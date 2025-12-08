@@ -27,7 +27,7 @@ public class MemberService {
     }
 
     public boolean isSubscribed(Member member){
-        Member m = memberRepo.findById(member.getId())
+        member = memberRepo.findById(member.getId())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         return member.getHasSubscription();
     }
