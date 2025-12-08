@@ -37,6 +37,8 @@ public class SessionBundle {
     }
 
     public int getId() {
+
+    public int getId() {
         return id;
     }
 
@@ -52,6 +54,8 @@ public class SessionBundle {
         this.durationHours = durationHours;
     }
 
+    public double getDurationHours() {
+        return durationHours;
     public double getDurationHours() {
         return durationHours;
     }
