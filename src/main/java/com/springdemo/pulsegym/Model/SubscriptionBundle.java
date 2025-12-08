@@ -71,4 +71,17 @@ public class SubscriptionBundle {
     public int getDurationInMonth() {
         return  durationInMonth;
     }
+
+    @Override
+    public String toString() {
+        return "Subscription{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", expDate=" + expDate +
+                ", length=" + length +
+                '}';
+    }
 }

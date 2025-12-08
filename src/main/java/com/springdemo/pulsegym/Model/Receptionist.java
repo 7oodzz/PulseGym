@@ -26,4 +26,12 @@ public class Receptionist extends User {
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }
+
+    @Override
+    public String toString() {
+        return "Receptionist{" +
+                "name='" + name + '\'' +
+                ", ssn='" + ssn + '\'' +
+                '}';
+    }
 }
