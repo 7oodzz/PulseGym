@@ -1,27 +1,35 @@
 package com.springdemo.pulsegym.Model;
 
-import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotEmpty;
 
+@Entity
 public class SessionBundle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotEmpty(message = "Description is required")
+    private String description;
     private double durationHours; 
     private Plan plan;
     private int NumberOfSessions;       
-    private LocalDate expiryDate;    
+    private String sessionDate;    
 
     public SessionBundle() { }
 
-    public SessionBundle(int id, String memberName, String sessionDate, double durationHours, Plan plan , int sessionsLeft, LocalDate expiryDate) {
+    
+    public SessionBundle(int id,int NumberOfSessions, String sessionDate, double durationHours, Plan plan ,String description) {
         this.id = id;
-        this.durationHours = durationHours;
         this.NumberOfSessions = NumberOfSessions;
-    }
-
+        this.sessionDate = sessionDate;
+        this.durationHours = durationHours;
+        this.plan = plan;
+        this.description = description;
+    }  
     public void setId(int id) 
     { 
         this.id = id;
@@ -43,26 +51,25 @@ public class SessionBundle {
         return NumberOfSessions;
     }
 
-    public void setSessionsLeft(int NumberOfSessions) {
+    public void setNumberOfSessions(int NumberOfSessions) {
         this.NumberOfSessions = NumberOfSessions;
     }
-
-    public LocalDate getExpiryDate() {
-        return expiryDate;
+     public String getDescription() {
+        return description;
     }
 
-    public void setExpiryDate(LocalDate expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setDescription(String description) {
+        this.description = description;
     }
+     public String getSessionDate() {
+        return sessionDate;
+    }
+
+    public void setSessionDate(String sessionDate) {
+        this.sessionDate = sessionDate;
+    }
+
     public Plan getPlan() { return plan; }
+    
     public void setPlan(Plan plan) { this.plan = plan; }
-    
-    
-    @Override
-    public String toString() {
-        return "PrivateSession{" +
-                "id=" + id +
-                ", durationHours=" + durationHours +
-                '}';
-    }
 }

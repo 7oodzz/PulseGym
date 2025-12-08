@@ -1,73 +1,38 @@
 package com.springdemo.pulsegym.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springdemo.pulsegym.Model.SessionBundle;
+import com.springdemo.pulsegym.Repository.SessionRepository;
 
 @Service
 public class SessionBundleService {
-       private List<SessionBundle> sessions = new ArrayList<>();
+    @Autowired
+    private SessionRepository repo;
 
-   
-    public void addSession(SessionBundle session) {
-        sessions.add(session);
+    public SessionBundle create(SessionBundle sub) {
+        return repo.save(sub);
     }
 
-
-    public List<SessionBundle> getAllSessions() {
-        return sessions;
+    public SessionBundle update(int id, SessionBundle x) {
+        SessionBundle existing = repo.findById(id).orElseThrow();
+        existing.setNumberOfSessions(x.getNumberOfSessions());
+        existing.setSessionDate(x.getSessionDate());
+        existing.setPlan(x.getPlan());      
+        return repo.save(existing);
     }
 
-  
-    public SessionBundle getSessionById(int id) {
-        Optional<SessionBundle> result = sessions
-                .stream()
-                .filter(s -> s.getId() == id)
-                .findFirst();
-        return result.orElse(null);
+    public void delete(int id) {
+        repo.deleteById(id);
     }
 
-   
-    public boolean updateSession(int id, SessionBundle updatedSession) {
-        for (int i = 0; i < sessions.size(); i++) {
-            if (sessions.get(i).getId() == id) {
-                updatedSession.setId(id); 
-                sessions.set(i, updatedSession);
-                return true;
-            }
-        }
-        return false;
+    public List<SessionBundle> list() {
+        return repo.findAll();
     }
 
-    
-    public boolean deleteSession(int id) {
-        return sessions.removeIf(s -> s.getId() == id);
+    public boolean exists(int id) {
+        return repo.existsById(id);
     }
 
-   /*  public boolean hasAvailableSessions(SessionBundle session) {
-        return session.getSessionsLeft() > 0;
-    }*/
-
-    public boolean isSessionExpired(SessionBundle session) {
-        return session.getExpiryDate().isBefore(LocalDate.now());
-    }
-
-    public boolean decrementSessionCount(SessionBundle session) {
-    if (isSessionExpired(session)) {
-        return false;
-    }
-  /*   if (!hasAvailableSessions(session)) {
-        return false;
-    }
-
-    session.setSessionsLeft(session.getSessionsLeft() - 1);
-    return true;
-}*/
-
-}
 }

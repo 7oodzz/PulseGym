@@ -1,7 +1,7 @@
 package com.springdemo.pulsegym.Repository;
+import com.springdemo.pulsegym.Model.MemberSession;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.springdemo.pulsegym.Model.Session;
-
-public class MemberSessionRepository extends JpaRepository<MemberSession, Integer> {
+public interface MemberSessionRepository extends JpaRepository<MemberSession, Integer> {
     
 }

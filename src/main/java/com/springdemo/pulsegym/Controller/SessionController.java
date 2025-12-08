@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springdemo.pulsegym.Model.SessionBundle;
-import com.springdemo.pulsegym.Service.SessionService;
+import com.springdemo.pulsegym.Service.SessionBundleService;
 
 
 @RestController
 @RequestMapping("/sessions")
 public class SessionController {
 
-    private SessionService sessionService;
+    private SessionBundleService sessionService;
 
-    public SessionController(SessionService sessionService) {
+    public SessionController(SessionBundleService sessionService) {
         this.sessionService = sessionService;
     }
 
@@ -32,14 +32,14 @@ public class SessionController {
     }
 
     @GetMapping
-    public List<SessionBundle> getAllSessions() {
-        return sessionService.getAllSessions();
+    public List<SessionBundleService> getAllSessions() {
+        return SessionBundleService.getAllSessions();
     }
 
     // Read by id
     @GetMapping("/{id}")
     public SessionBundle getSessionById(@PathVariable int id) {
-        return sessionService.getSessionById(id);
+        return SessionBUNDLEService.getSessionById(id);
     }
 
     @PutMapping("/{id}")
