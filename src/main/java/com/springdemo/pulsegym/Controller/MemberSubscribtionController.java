@@ -28,8 +28,8 @@ public class MemberSubscribtionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 
         }
-       int memberId= memberSubscription.getMemberId();
-        int subId =memberSubscription.getSubscriptionBundleId();
+       int memberId= memberSubscription.getMember().getId();
+        int subId =memberSubscription.getBundle().getId();
 
         return memberSubscriptionService.addSubscriptionToMember(memberId, subId) ;
 

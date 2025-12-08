@@ -51,6 +51,15 @@ public abstract class User {
             throw new IllegalArgumentException(fieldName + " must not be null or empty.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
 
 

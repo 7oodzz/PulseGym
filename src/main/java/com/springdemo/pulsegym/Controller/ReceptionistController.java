@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/receptionist")
 public class ReceptionistController {
 
+    @Autowired
     private JwtUtil jwt;
 
     @GetMapping("/dashboard")
@@ -32,44 +33,44 @@ public class ReceptionistController {
     ReceptionistService receptionistService;
 
     @GetMapping("/")
-    public List<Receptionist> getReceptionists(){
+    public List<Receptionist> getReceptionists() {
         return receptionistService.getReceptionists();
     }
 
     @PostMapping("/add")
-    public Object addReceptionist(@Valid @RequestBody ReceptionistRequest request, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            List<String> errors=bindingResult.getFieldErrors()
+    public Object addReceptionist(@Valid @RequestBody ReceptionistRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getFieldErrors()
                     .stream()
-                    .map(error->error.getField()+": "+error.getDefaultMessage())
+                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
-        return receptionistService.addReceptionist(request.getName(),request.getSsn());
+        return receptionistService.addReceptionist(request);
     }
 
     @PutMapping("/update/{ssn}")
-    public Object updateReceptionist(@Valid @PathVariable("ssn") String ssn,@RequestBody Receptionist receptionist, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            List<String> errors=bindingResult.getFieldErrors()
+    public Object updateReceptionist(@Valid @PathVariable("ssn") String ssn, @RequestBody Receptionist receptionist, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getFieldErrors()
                     .stream()
-                    .map(error->error.getField()+": "+error.getDefaultMessage())
+                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
-        return receptionistService.updateReceptionist(ssn,receptionist);
+        return receptionistService.updateReceptionist(ssn, receptionist);
     }
 
     @DeleteMapping("/delete/{ssn}")
-    public Object deleteReceptionist(@Valid @PathVariable("ssn") String ssn, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            List<String> errors=bindingResult.getFieldErrors()
+    public Object deleteReceptionist(@Valid @PathVariable("ssn") String ssn, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getFieldErrors()
                     .stream()
-                    .map(error->error.getField()+": "+error.getDefaultMessage())
+                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
                     .collect(Collectors.toList());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
-       receptionistService.deleteReceptionist(ssn);
+        receptionistService.deleteReceptionist(ssn);
         return ResponseEntity.ok("Receptionist Deleted successfully");
     }
 }

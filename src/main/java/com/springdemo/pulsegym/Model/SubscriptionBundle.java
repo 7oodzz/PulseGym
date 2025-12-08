@@ -3,8 +3,8 @@ package com.springdemo.pulsegym.Model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
@@ -79,9 +79,6 @@ public class SubscriptionBundle {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", expDate=" + expDate +
-                ", length=" + length +
                 '}';
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-public class Session {
+public class SessionBundle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

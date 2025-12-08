@@ -8,6 +8,7 @@ import com.springdemo.pulsegym.Repository.MemberSubscriptionRepo;
 import com.springdemo.pulsegym.Repository.SubscriptionRepository;
 import jdk.jshell.JShell;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,45 +23,36 @@ public class MemberSubscriptionService {
     @Autowired
     SubscriptionRepository subscriptionRepo;
 
-    public Object addSubscriptionToMember(int subId, int memberId){
+    public Object addSubscriptionToMember(int subId, int memberId) {
 //        boolean isMember=memberRepo.findById(memberId)!= null;
 //        boolean isSubscription= subscriptionRepo.findById(subId) !=null;
         Member member = memberRepo.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         SubscriptionBundle subscriptionBundle = subscriptionRepo.findById(subId)
                 .orElseThrow(() -> new RuntimeException("Subscription not found"));
-        if(member.getHasSubscription()){
-            return"Member already has subscription";
-        }
-        else {
-            MemberSubscription memberSubObj=new MemberSubscription();
-            memberSubObj.setSubscriptionBundleId(subscriptionBundle.getId());
-            memberSubObj.setMemberId(member.getId());
-            memberSubObj.setStartDate(LocalDate.now());
-            memberSubObj.setExpDate(memberSubObj.getStartDate().plusMonths(subscriptionBundle.getDurationInMonth()));
+        if (member.getHasSubscription()) {
+            return "Member already has subscription";
+        } else {
+            MemberSubscription memberSubObj = new MemberSubscription(member, subscriptionBundle, LocalDate.now(),
+                    LocalDate.now().plusMonths(subscriptionBundle.getDurationInMonth()));
             member.setHasSubscription(true);
             return memberSubscriptionRepo.save(memberSubObj);
-
-
         }
-
 
     }
 
-    public Object removeSubFromUser(int memberSubId){
-        MemberSubscription memberSubscription= memberSubscriptionRepo.findById(memberSubId)
+    public Object removeSubFromUser(int memberSubId) {
+        MemberSubscription memberSubscription = memberSubscriptionRepo.findById(memberSubId)
                 .orElseThrow(() -> new RuntimeException("Member's subscription not found"));
-        int memberId=memberSubscription.getMemberId();
-        int subId= memberSubscription.getSessionBundleId();
+        int memberId = memberSubscription.getMember().getId();
+        int subId = memberSubscription.getBundle().getId();
         Member member = memberRepo.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         SubscriptionBundle subscriptionBundle = subscriptionRepo.findById(subId)
                 .orElseThrow(() -> new RuntimeException("Subscription not found"));
-        if(!member.getHasSubscription()){
-            return"subscription already removed";
-        }
-
-        else{
+        if (!member.getHasSubscription()) {
+            return "subscription already removed";
+        } else {
             member.setHasSubscription(false);
             memberSubscriptionRepo.delete(memberSubscription);
             return "deletion succesful";
@@ -68,7 +60,7 @@ public class MemberSubscriptionService {
 
     }
 
-    public List<MemberSubscription> listMemberSubscriptions(){
+    public List<MemberSubscription> listMemberSubscriptions() {
         return memberSubscriptionRepo.findAll();
     }
 
