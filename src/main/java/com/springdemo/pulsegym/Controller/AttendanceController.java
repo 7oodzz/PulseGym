@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/attendance")
+@RequestMapping("/receptionist")
 public class AttendanceController {
 
     @Autowired
@@ -14,7 +14,7 @@ public class AttendanceController {
 
     
     @PostMapping("/check-in/{memberId}")
-    public ResponseEntity<String> checkIn(@PathVariable Long memberId) {
+    public ResponseEntity<String> checkIn(@PathVariable int memberId) {
         String result = attendanceService.checkInMember(memberId);
         return ResponseEntity.ok(result);
     }

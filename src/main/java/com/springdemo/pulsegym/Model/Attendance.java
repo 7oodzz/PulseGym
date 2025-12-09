@@ -16,7 +16,7 @@ public class Attendance {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    // Constructors
+    
     public Attendance() {}
 
     public Attendance(Member member) {

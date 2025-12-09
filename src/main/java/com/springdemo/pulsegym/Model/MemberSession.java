@@ -2,17 +2,19 @@ package com.springdemo.pulsegym.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class MemberSession {
     @Id
-    @GeneratedValue
-    int id;
-    int subscriptionBundleId;
-    int sessionBundleId;
-    int memberId;
-    int sessionsLeft;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private int subscriptionBundleId;
+    private int sessionBundleId;
+    private int memberId;
+    private int sessionsLeft;
 
     public int getSessionsLeft() {
         return sessionsLeft;
