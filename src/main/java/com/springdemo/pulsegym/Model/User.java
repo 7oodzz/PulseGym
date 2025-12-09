@@ -1,16 +1,31 @@
 package com.springdemo.pulsegym.Model;
 
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Users")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
 
-    private String username;
-    private String password;
-    private String SSN;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    public User(String username, String password, String SSN) {
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false, unique = true)
+    private String password;
+
+    public User(String username, String password) {
         setUsername(username);
         setPassword(password);
-        setSSN(SSN);
+    }
+
+    public User() {
+
     }
 
     public String getUsername() {
@@ -31,19 +46,19 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getSSN() {
-        return SSN;
-    }
-
-    public void setSSN(String SSN) {
-        validateField(SSN, "SSN");
-        this.SSN = SSN;
-    }
-
     private void validateField(String value, String fieldName) {
         if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException(fieldName + " must not be null or empty.");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
 

@@ -3,13 +3,11 @@ package com.springdemo.pulsegym.Model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-import org.springframework.data.annotation.Id;
-
-import java.util.Date;
 
 @Entity
-public class Subscription {
+public class SubscriptionBundle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,11 +23,11 @@ public class Subscription {
     @Size(max = 255, message = "Description must be less than 255 characters")
     private String description;
 
-    @NotNull(message = "Start date is required")
-    private Date startDate;
+    @NotNull(message = "Length of subscription is required")
+    @Min(value = 0, message = "Length of subscription must be greater than zero")
+    private int durationInMonth;
 
-    @NotNull(message = "Expiration date is required")
-    private Date expDate;
+
 
     public void setId(int id) {
         this.id = id;
@@ -47,12 +45,9 @@ public class Subscription {
         this.description = description;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
 
-    public void setExpDate(Date expDate) {
-        this.expDate = expDate;
+    public void setDurationInMonth(int durationInMonth) {
+        this.durationInMonth = durationInMonth ;
     }
 
     public int getId() {
@@ -71,11 +66,18 @@ public class Subscription {
         return description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public int getDurationInMonth() {
+        return  durationInMonth;
     }
 
-    public Date getExpDate() {
-        return expDate;
+    @Override
+    public String toString() {
+        return "SubscriptionBundle{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", durationInMonth=" + durationInMonth +
+                '}';
     }
 }

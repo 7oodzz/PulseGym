@@ -1,6 +1,10 @@
 package com.springdemo.pulsegym.Model;
 
-public class Admin {
-        int id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Admins")
+public class Admin extends User{
     
 }

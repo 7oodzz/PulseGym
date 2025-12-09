@@ -1,5 +1,9 @@
 package com.springdemo.pulsegym.Repository;
 
-public class SessionRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.springdemo.pulsegym.Model.SessionBundle;
+
+public interface SessionRepository extends JpaRepository<SessionBundle, Integer> {
 }
+
