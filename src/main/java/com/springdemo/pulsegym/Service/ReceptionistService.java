@@ -39,7 +39,7 @@ public class ReceptionistService {
         return receptionistRepo.save(rec);
     }
 
-    public Receptionist updateReceptionist(String ssn, Receptionist updated) {
+    public Receptionist updateReceptionist(String ssn, ReceptionistRequest updated) {
         Receptionist original = receptionistRepo.findBySsn(ssn)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         original.setPassword(encoder.encode(updated.getPassword()));

@@ -4,10 +4,12 @@ import org.springframework.stereotype.Component;
 import com.springdemo.pulsegym.Model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 
 @Component
 public class JwtUtil {
-    private String key = "my-secret";
+    @Value("${jwt.key}")
+    private String key;
 
     public String generateToken(User user) {
         return Jwts.builder()

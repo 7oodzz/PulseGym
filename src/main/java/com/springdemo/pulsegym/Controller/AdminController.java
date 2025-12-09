@@ -24,7 +24,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/create")
+    @PostMapping("/createAdmin")
     public Object createAdmin(@Valid @RequestBody Admin admin,BindingResult bindingResult ) {
          if(bindingResult.hasErrors()){
             List<String> errors = bindingResult.getFieldErrors()
@@ -37,12 +37,12 @@ public class AdminController {
             return adminService.registerAdmin(admin);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/listAdmins")
     public List<Admin> listAdmins(){ 
         return adminService.getAllAdmins();
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/deleteAdmin/{id}")
     public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {
         adminService.deleteAdmin(id);
         return ResponseEntity.ok("Admin deleted successfully");

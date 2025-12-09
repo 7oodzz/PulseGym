@@ -39,7 +39,7 @@ public class ReceptionistController {
     }
 
     @PutMapping("/updateRecep/{ssn}")
-    public Object updateReceptionist(@Valid @PathVariable("ssn") String ssn, @RequestBody Receptionist receptionist, BindingResult bindingResult) {
+    public Object updateReceptionist(@Valid @PathVariable("ssn") String ssn, @RequestBody ReceptionistRequest receptionist, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
                     .stream()

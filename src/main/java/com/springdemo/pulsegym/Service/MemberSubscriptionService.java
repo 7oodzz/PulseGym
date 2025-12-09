@@ -7,7 +7,6 @@ import com.springdemo.pulsegym.Repository.MemberRepository;
 import com.springdemo.pulsegym.Repository.MemberSubscriptionRepo;
 import com.springdemo.pulsegym.Repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,8 +22,7 @@ public class MemberSubscriptionService {
     SubscriptionRepository subscriptionRepo;
 
     public Object addSubscriptionToMember(int subId, int memberId) {
-//        boolean isMember=memberRepo.findById(memberId)!= null;
-//        boolean isSubscription= subscriptionRepo.findById(subId) !=null;
+        
         Member member = memberRepo.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         SubscriptionBundle subscriptionBundle = subscriptionRepo.findById(subId)
@@ -40,24 +38,23 @@ public class MemberSubscriptionService {
 
     }
 
-    public Object removeSubFromUser(int memberSubId) {
+    public String removeSubFromMember(int memberSubId) {
+
         MemberSubscription memberSubscription = memberSubscriptionRepo.findById(memberSubId)
                 .orElseThrow(() -> new RuntimeException("Member's subscription not found"));
-        int memberId = memberSubscription.getMember().getId();
-        int subId = memberSubscription.getBundle().getId();
-        Member member = memberRepo.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("Member not found"));
-        SubscriptionBundle subscriptionBundle = subscriptionRepo.findById(subId)
-                .orElseThrow(() -> new RuntimeException("Subscription not found"));
+
+        Member member = memberSubscription.getMember();
+
         if (!member.getHasSubscription()) {
             return "subscription already removed";
-        } else {
-            member.setHasSubscription(false);
-            memberSubscriptionRepo.delete(memberSubscription);
-            return "deletion succesful";
         }
 
+        member.setHasSubscription(false);
+        memberRepo.save(member);
+        memberSubscriptionRepo.delete(memberSubscription);
+        return "deletion successful";
     }
+
 
     public List<MemberSubscription> listMemberSubscriptions() {
         return memberSubscriptionRepo.findAll();
