@@ -7,10 +7,13 @@ import jakarta.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "Receptionists")
 public class Receptionist extends User {
-    @NotEmpty
-    private String name;
+
+    @Id
     @NotEmpty
     private String ssn;
+
+    @NotEmpty
+    private String name;
 
     public String getName() {
         return name;
@@ -28,7 +31,8 @@ public class Receptionist extends User {
         this.ssn = ssn;
     }
 
-    public Receptionist() {}
+    public Receptionist() {
+    }
 
     public Receptionist(String username, String password, String name, String ssn) {
         super(username, password);

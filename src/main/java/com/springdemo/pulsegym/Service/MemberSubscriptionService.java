@@ -33,6 +33,7 @@ public class MemberSubscriptionService {
             MemberSubscription memberSubObj = new MemberSubscription(member, subscriptionBundle, LocalDate.now(),
                     LocalDate.now().plusMonths(subscriptionBundle.getDurationInMonth()));
             member.setHasSubscription(true);
+            memberRepo.save(member);
             return memberSubscriptionRepo.save(memberSubObj);
         }
 

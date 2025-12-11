@@ -16,11 +16,11 @@ public class SessionBundleService {
         return repo.save(sub);
     }
 
-    public SessionBundle update(int id, SessionBundle x) {
+    public SessionBundle update(int id, SessionBundle sessionBundle) {
         SessionBundle existing = repo.findById(id).orElseThrow();
-        existing.setSessionsLeft(x.getSessionsLeft());
-        existing.setSessionDate(x.getSessionDate());
-        existing.setPlan(x.getPlan());      
+        existing.setTitle(sessionBundle.getTitle());
+        existing.setLongTermGaol(sessionBundle.getLongTermGaol());
+        existing.setSessionsAmount(sessionBundle.getSessionsAmount());
         return repo.save(existing);
     }
 

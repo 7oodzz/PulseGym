@@ -28,7 +28,7 @@ public class MemberSessionController {
     MemberSessionService memberSessionService;
 
     @PostMapping("/addMemberSession")
-    public Object addSubscriptionToMember(@Valid @RequestBody MemberSession memberSession, BindingResult bindingResult){
+    public Object addSubscriptionToMember(@Valid @RequestBody int memberId, int sessionId, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
                     .stream()
@@ -37,8 +37,6 @@ public class MemberSessionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 
         }
-        int memberId= memberSession.getMemberId();
-        int sessionId =memberSession.getSessionBundleId();
 
         return memberSessionService.addSessionToMember(memberId, sessionId) ;
 

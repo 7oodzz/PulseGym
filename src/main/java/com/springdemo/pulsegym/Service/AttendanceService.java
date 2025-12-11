@@ -2,10 +2,14 @@ package com.springdemo.pulsegym.Service;
 
 import com.springdemo.pulsegym.Model.Attendance;
 import com.springdemo.pulsegym.Model.Member;
+import com.springdemo.pulsegym.Model.MemberSession;
 import com.springdemo.pulsegym.Repository.AttendanceRepository;
 import com.springdemo.pulsegym.Repository.MemberRepository;
+import com.springdemo.pulsegym.Repository.MemberSessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AttendanceService{
@@ -14,15 +18,35 @@ public class AttendanceService{
     private AttendanceRepository attendanceRepository;
 
     @Autowired
-    private MemberRepository memberRepository;  
+    private MemberRepository memberRepository;
 
+    @Autowired
+    private MemberRepository memberRepo;
+
+    @Autowired
+    private MemberSessionRepository memberSessionRepository;
 
     public String checkInMember(int memberId) {
         
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found!"));
-                
-    
+
+        if(!member.getHasSubscription()) {
+            return "Member not subscribed!";
+        }
+
+        if(member.getHasSession()) {
+            Optional <MemberSession> sessionBox = memberSessionRepository.findByMemberAndIsActiveTrue(member);
+            MemberSession session = sessionBox.get();
+            session.setSessionsLeft(session.getSessionsLeft() - 1);
+            memberSessionRepository.save(session);
+            if (session.getSessionsLeft() == 0) {
+                member.setHasSession(false);
+                memberRepo.save(member);
+                memberSessionRepository.removeMemberSessionById(session.getSessionId());
+            }
+        }
+
         Attendance attendance = new Attendance(member);
         attendanceRepository.save(attendance);
 

@@ -1,9 +1,6 @@
 package com.springdemo.pulsegym.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class MemberSession {
@@ -11,42 +8,49 @@ public class MemberSession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int subscriptionBundleId;
-    private int sessionBundleId;
-    private int memberId;
+    @ManyToOne
+    @JoinColumn(name = "bundle_id", nullable = false)
+    private SessionBundle bundle;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
     private int sessionsLeft;
+
+    public MemberSession () {}
+
+    public MemberSession(Member member, SessionBundle bundle) {
+        this.member = member;
+        this.bundle = bundle;
+        this.sessionsLeft = bundle.getSessionsAmount();
+    }
+
+    public SessionBundle getBundle() {
+        return bundle;
+    }
+
+    public void setBundle(SessionBundle bundle) {
+        this.bundle = bundle;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
     public int getSessionsLeft() {
         return sessionsLeft;
     }
+
     public void setSessionsLeft(int sessionsLeft) {
         this.sessionsLeft = sessionsLeft;
     }
-    public int getId() {
+
+    public int getSessionId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getSubscriptionBundleId() {
-        return subscriptionBundleId;
-    }
-    public void setSubscriptionBundleId(int subscriptionBundleId) {
-        this.subscriptionBundleId = subscriptionBundleId;
-    }
-    public int getSessionBundleId() {
-        return sessionBundleId;
-    }
-    public void setSessionBundleId(int sessionBundleId) {
-        this.sessionBundleId = sessionBundleId;
-    }
-    public int getMemberId() {
-        return memberId;
-    }
-    public void setMemberId(int memberId) {
-        this.memberId = memberId;
-    }
-
-
-
 }

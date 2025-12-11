@@ -10,9 +10,9 @@ public class MemberSubscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    LocalDate expDate;
+    private LocalDate expDate;
 
-    LocalDate startDate;
+    private LocalDate startDate;
 
     @ManyToOne
     @JoinColumn(name = "bundle_id", nullable = false)

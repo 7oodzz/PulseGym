@@ -34,11 +34,11 @@ public class MemberSessionService {
             return "Member already has a session bundle assigned";
         }
 
-        MemberSession ms = new MemberSession();
-        ms.setSessionBundleId(sessionBundle.getId());
-        ms.setMemberId(member.getId());
-        ms.setSessionsLeft(sessionBundle.getSessionsLeft());
+        MemberSession ms = new MemberSession(member, sessionBundle);
+        ms.setBundle(sessionBundle);
+        ms.setMember(member);
         member.setHasSession(true);
+        memberRepo.save(member);
         return memberSessionRepo.save(ms);
     }
 
@@ -47,17 +47,18 @@ public class MemberSessionService {
         MemberSession memberSession = memberSessionRepo.findById(memberSessionId)
                 .orElseThrow(() -> new RuntimeException("MemberSession record not found"));
 
-        Member member = memberRepo.findById(memberSession.getMemberId())
-                .orElseThrow(() -> new RuntimeException("Member not found"));
+        Member member = memberSession.getMember();
 
         if (!member.getHasSession()) {
             return "Session bundle already removed";
         }
 
         member.setHasSession(false);
+        memberRepo.save(member);
         memberSessionRepo.delete(memberSession);
         return "Session bundle removed";
     }
+
 
     public List<MemberSession> listMemberSessions() {
         return memberSessionRepo.findAll();

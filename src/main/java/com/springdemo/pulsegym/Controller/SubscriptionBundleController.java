@@ -1,7 +1,7 @@
 package com.springdemo.pulsegym.Controller;
 
 import com.springdemo.pulsegym.Model.SubscriptionBundle;
-import com.springdemo.pulsegym.Service.SubscriptionService;
+import com.springdemo.pulsegym.Service.SubscriptionBundleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin/subscriptionBundles")
 public class SubscriptionBundleController {
     @Autowired
-    private SubscriptionService service;
+    private SubscriptionBundleService service;
 
     private Object validationErrors(BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {

@@ -14,17 +14,11 @@ import java.util.List;
 public class ReceptionistService {
 
     @Autowired
-    private final ReceptionistRepository receptionistRepo;
+    private ReceptionistRepository receptionistRepo;
     @Autowired
     private PasswordEncoder encoder;
     @Autowired
     private UserFactory userFactory;
-
-
-    public ReceptionistService(ReceptionistRepository receptionistRepo) {
-
-        this.receptionistRepo = receptionistRepo;
-    }
 
     public List<Receptionist> getReceptionists() {
         return receptionistRepo.findAll();

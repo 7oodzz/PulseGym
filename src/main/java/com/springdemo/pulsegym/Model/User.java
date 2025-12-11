@@ -11,7 +11,7 @@ public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    protected int id;
 
     @Column(nullable = false, unique = true)
     protected String username;
