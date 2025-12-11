@@ -1,15 +1,24 @@
 package com.springdemo.pulsegym.Factory;
 import com.springdemo.pulsegym.DTO.ReceptionistRequest;
+import com.springdemo.pulsegym.Model.Admin;
 import com.springdemo.pulsegym.Model.Member;
 import com.springdemo.pulsegym.Model.Receptionist;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+@Component
 public class UserFactory {
     private final PasswordEncoder encoder;
 
     public UserFactory(PasswordEncoder encoder) {
         this.encoder = encoder;
+    }
+
+    public Admin createAdmin(String username, String password) {
+        Admin admin = new Admin();
+        admin.setUsername(username);
+        admin.setPassword(encoder.encode(password));
+        return admin;
     }
 
     public Receptionist createReceptionist(ReceptionistRequest dto) {

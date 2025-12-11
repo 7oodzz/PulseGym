@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Service;
 
+import com.springdemo.pulsegym.Factory.UserFactory;
 import com.springdemo.pulsegym.Model.Admin;
 import com.springdemo.pulsegym.Repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,18 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepo;
     @Autowired
-    private PasswordEncoder encoder;
+    private UserFactory userFactory;
 
+//    public Admin registerAdmin(Admin admin) {
+//        admin.setPassword(encoder.encode(admin.getPassword()));
+//        return adminRepo.save(admin);
+//    }
     public Admin registerAdmin(Admin admin) {
-        admin.setPassword(encoder.encode(admin.getPassword()));
-        return adminRepo.save(admin);
+        Admin newAdmin = userFactory.createAdmin(
+                admin.getUsername(),
+                admin.getPassword()
+        );
+        return adminRepo.save(newAdmin);
     }
 
     public void deleteAdmin(Long id) {
