@@ -15,10 +15,6 @@ public class MemberService {
     @Autowired
     private UserFactory userFactory;
 
-//    public Member addMember(Member member){
-//        return memberRepo.save(member);
-//    }
-
     public Member addMember(Member member) {
         Member newMember = userFactory.createMember(member);
         return memberRepo.save(newMember);
