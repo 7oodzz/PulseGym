@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface MemberSessionRepository extends JpaRepository<MemberSession, Integer> {
     Optional<MemberSession> findByMemberAndIsActiveTrue(Member member);
 
-    void removeMemberSessionById(int sessionId);
+    void deleteByInt(int sessionId);
 }

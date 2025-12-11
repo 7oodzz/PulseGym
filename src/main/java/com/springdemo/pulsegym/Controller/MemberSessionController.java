@@ -3,6 +3,7 @@ package com.springdemo.pulsegym.Controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.springdemo.pulsegym.DTO.MemberIdRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class MemberSessionController {
     MemberSessionService memberSessionService;
 
     @PostMapping("/addMemberSession")
-    public Object addSubscriptionToMember(@Valid @RequestBody int memberId, int sessionId, BindingResult bindingResult){
+    public Object addSubscriptionToMember(@Valid @RequestBody MemberIdRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
                     .stream()
@@ -38,7 +39,7 @@ public class MemberSessionController {
 
         }
 
-        return memberSessionService.addSessionToMember(memberId, sessionId) ;
+        return memberSessionService.addSessionToMember(request.getItemId(), request.getMemberId()) ;
 
     }
     @GetMapping("/listMemberSessions")

@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Controller;
 
+import com.springdemo.pulsegym.DTO.MemberIdRequest;
 import com.springdemo.pulsegym.Model.MemberSubscription;
 import com.springdemo.pulsegym.Service.MemberSubscriptionService;
 import jakarta.validation.Valid;
@@ -19,7 +20,7 @@ public class MemberSubscribtionController {
     MemberSubscriptionService memberSubscriptionService;
 
     @PostMapping("/addMemberSubscription")
-    public Object addSubscriptionToMember(@Valid @RequestBody int memberId, int subId, BindingResult bindingResult){
+    public Object addSubscriptionToMember(@Valid @RequestBody MemberIdRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             // Return all validation errors as a list of messages
             List<String> errors = bindingResult.getFieldErrors()
@@ -30,7 +31,7 @@ public class MemberSubscribtionController {
 
         }
 
-        return memberSubscriptionService.addSubscriptionToMember(memberId, subId) ;
+        return memberSubscriptionService.addSubscriptionToMember(request.getItemId(), request.getMemberId()) ;
 
     }
     @GetMapping("/listMemberSubscriptions")

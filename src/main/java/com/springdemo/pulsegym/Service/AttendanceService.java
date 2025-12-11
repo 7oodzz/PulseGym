@@ -45,7 +45,7 @@ public class AttendanceService{
             if (session.getSessionsLeft() == 0) {
                 member.setHasSession(false);
                 memberRepo.save(member);
-                memberSessionRepository.removeMemberSessionById(session.getSessionId());
+                memberSessionRepository.deleteByInt(session.getSessionId());
             }
         }
 
