@@ -25,7 +25,7 @@ public class AdminService {
         return adminRepo.save(admin);
     }
 
-    public void deleteAdmin(Long id) {
+    public void deleteAdmin(int id) {
         adminRepo.deleteById(id);
     }
 

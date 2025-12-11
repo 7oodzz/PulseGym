@@ -44,7 +44,7 @@ public class AdminController {
     }
 
     @PostMapping("/deleteAdmin/{id}")
-    public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {
+    public ResponseEntity<String> deleteAdmin(@PathVariable int id) {
         adminService.deleteAdmin(id);
         return ResponseEntity.ok("Admin deleted successfully");
     }
