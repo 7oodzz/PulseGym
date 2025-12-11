@@ -6,12 +6,14 @@ import com.springdemo.pulsegym.Model.MemberSession;
 import com.springdemo.pulsegym.Repository.AttendanceRepository;
 import com.springdemo.pulsegym.Repository.MemberRepository;
 import com.springdemo.pulsegym.Repository.MemberSessionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class AttendanceService{
 
     @Autowired

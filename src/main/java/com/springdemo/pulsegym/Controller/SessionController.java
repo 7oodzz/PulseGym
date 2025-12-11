@@ -29,10 +29,6 @@ public class SessionController {
     @Autowired
     private SessionBundleService sessionService;
 
-    public SessionController(SessionBundleService sessionService) {
-        this.sessionService = sessionService;
-    }
-
     private Object validationErrors(BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors().stream().map(error -> error.getField() + ": " + error.getDefaultMessage()).collect(Collectors.toList());
@@ -40,6 +36,7 @@ public class SessionController {
         }
         return null;
     }
+
     @PostMapping("/createSessionBundle")
     public Object createSessionBundle(@Valid @RequestBody SessionBundle session,BindingResult bindingResult) {
          Object error = validationErrors(bindingResult);

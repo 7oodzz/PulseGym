@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 @Table(name = "Receptionists")
 public class Receptionist extends User {
 
-    @Id
+    @Column(unique = true)
     @NotEmpty
     private String ssn;
 

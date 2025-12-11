@@ -19,7 +19,7 @@ public class MemberSubscribtionController {
     MemberSubscriptionService memberSubscriptionService;
 
     @PostMapping("/addMemberSubscription")
-    public Object addSubscriptionToMember(@Valid @RequestBody MemberSubscription memberSubscription, BindingResult bindingResult){
+    public Object addSubscriptionToMember(@Valid @RequestBody int memberId, int subId, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             // Return all validation errors as a list of messages
             List<String> errors = bindingResult.getFieldErrors()
@@ -29,8 +29,6 @@ public class MemberSubscribtionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
 
         }
-       int memberId= memberSubscription.getMember().getId();
-        int subId =memberSubscription.getBundle().getId();
 
         return memberSubscriptionService.addSubscriptionToMember(memberId, subId) ;
 
