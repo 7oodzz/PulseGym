@@ -11,13 +11,13 @@ public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    protected long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    protected String username;
 
     @Column(nullable = false, unique = true)
-    private String password;
+    protected String password;
 
     public User(String username, String password) {
         setUsername(username);

@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Model;
 
+import com.springdemo.pulsegym.DTO.ReceptionistRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -24,6 +25,14 @@ public class Receptionist extends User {
     }
 
     public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
+
+    public Receptionist() {}
+
+    public Receptionist(String username, String password, String name, String ssn) {
+        super(username, password);
+        this.name = name;
         this.ssn = ssn;
     }
 
