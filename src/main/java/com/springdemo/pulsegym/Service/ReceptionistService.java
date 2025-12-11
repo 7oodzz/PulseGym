@@ -39,6 +39,9 @@ public class ReceptionistService {
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         original.setPassword(encoder.encode(updated.getPassword()));
         original.setSsn(updated.getSsn());
+        if (!ssn.equals(updated.getSsn()) && receptionistRepo.findBySsn(updated.getSsn()).isPresent()) {
+            throw new IllegalStateException("SSN already taken by another receptionist");
+        }
         return receptionistRepo.save(original);
     }
 
