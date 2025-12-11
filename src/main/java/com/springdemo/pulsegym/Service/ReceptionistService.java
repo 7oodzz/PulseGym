@@ -1,6 +1,7 @@
 package com.springdemo.pulsegym.Service;
 
 import com.springdemo.pulsegym.DTO.ReceptionistRequest;
+import com.springdemo.pulsegym.Factory.UserFactory;
 import com.springdemo.pulsegym.Model.Receptionist;
 import com.springdemo.pulsegym.Repository.ReceptionistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class ReceptionistService {
     private final ReceptionistRepository receptionistRepo;
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private UserFactory userFactory;
 
 
     public ReceptionistService(ReceptionistRepository receptionistRepo) {
@@ -27,15 +30,25 @@ public class ReceptionistService {
         return receptionistRepo.findAll();
     }
 
+//    public Receptionist addReceptionist(ReceptionistRequest recepReq) {
+//        if (receptionistRepo.findBySsn(recepReq.getSsn()).isPresent()) {
+//            throw new IllegalStateException("Receptionist is already exist with this ssn " + recepReq.getSsn());
+//        }
+//        Receptionist rec = new Receptionist();
+//        rec.setUsername(recepReq.getUsername());
+//        rec.setPassword(encoder.encode(recepReq.getPassword()));
+//        rec.setName(recepReq.getName());
+//        rec.setSsn(recepReq.getSsn());
+//        return receptionistRepo.save(rec);
+//    }
+
     public Receptionist addReceptionist(ReceptionistRequest recepReq) {
+
         if (receptionistRepo.findBySsn(recepReq.getSsn()).isPresent()) {
-            throw new IllegalStateException("Receptionist is already exist with this ssn " + recepReq.getSsn());
+            throw new IllegalStateException("Receptionist already exists");
         }
-        Receptionist rec = new Receptionist();
-        rec.setUsername(recepReq.getUsername());
-        rec.setPassword(encoder.encode(recepReq.getPassword()));
-        rec.setName(recepReq.getName());
-        rec.setSsn(recepReq.getSsn());
+
+        Receptionist rec = userFactory.createReceptionist(recepReq);
         return receptionistRepo.save(rec);
     }
 

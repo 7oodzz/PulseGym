@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Service;
 
+import com.springdemo.pulsegym.Factory.UserFactory;
 import com.springdemo.pulsegym.Model.Member;
 import com.springdemo.pulsegym.Repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,18 @@ import java.util.List;
 public class MemberService {
     @Autowired
     private MemberRepository memberRepo;
+    @Autowired
+    private UserFactory userFactory;
 
-    public Member addMember(Member member){
-        return memberRepo.save(member);
+//    public Member addMember(Member member){
+//        return memberRepo.save(member);
+//    }
+
+    public Member addMember(Member member) {
+        Member newMember = userFactory.createMember(member);
+        return memberRepo.save(newMember);
     }
+
     public Member updateMember(Member newMember){
         Member member = memberRepo.findById(newMember.getId())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
@@ -38,9 +47,6 @@ public class MemberService {
     public List<Member> listMembers(){
         return memberRepo.findAll();
     }
-
-
-
 
 }
 
