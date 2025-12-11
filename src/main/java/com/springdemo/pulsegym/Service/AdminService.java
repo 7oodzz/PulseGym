@@ -16,17 +16,12 @@ public class AdminService {
     @Autowired
     private UserFactory userFactory;
 
-//    public Admin registerAdmin(Admin admin) {
-//        admin.setPassword(encoder.encode(admin.getPassword()));
-//        return adminRepo.save(admin);
-//    }
-    public Admin registerAdmin(AuthRequest req) {
-
-        if (adminRepo.findByUsername(req.getUsername()).isPresent()) {
-            throw new IllegalStateException("Admin already exists");
+    public Admin registerAdmin(AuthRequest adminReq) {
+       if (adminRepo.findByUsername(adminReq.getUsername()).isPresent()) {
+            throw new IllegalStateException("admin already exists");
         }
 
-        Admin admin = userFactory.createAdmin(req);
+        Admin admin = userFactory.createAdmin(adminReq);
         return adminRepo.save(admin);
     }
 
