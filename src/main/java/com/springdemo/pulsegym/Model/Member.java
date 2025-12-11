@@ -67,12 +67,11 @@ public class Member {
         this.hasSubscription = hasSubscription;
     }
 
-    public Member(int id, String phoneNo, String name) {
-        this.id = id;
+    public Member(String phoneNo, String name) {
         this.phoneNo = phoneNo;
+        this.name = name;
         this.hasSubscription = false;
         this.hasSession = false;
-        this.name = name;
     }
 
     @Override

@@ -22,13 +22,10 @@ public class UserFactory {
         return admin;
     }
 
-    public Receptionist createReceptionist(ReceptionistRequest dto) {
-        Receptionist r = new Receptionist();
-        r.setUsername(dto.getUsername());
-        r.setPassword(encoder.encode(dto.getPassword()));
-        r.setSsn(dto.getSsn());
-        r.setName(dto.getName());
-        return r;
+
+    public Receptionist createReceptionist(ReceptionistRequest receptionistRequest) {
+        return new Receptionist(receptionistRequest.getUsername(), receptionistRequest.getPassword(),
+                receptionistRequest.getName(), receptionistRequest.getSsn());
     }
 
     public Member createMember(Member m) {
