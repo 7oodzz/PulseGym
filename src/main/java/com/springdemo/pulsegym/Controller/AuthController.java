@@ -17,7 +17,7 @@ import com.springdemo.pulsegym.Service.UserService;
 import com.springdemo.pulsegym.Util.JwtUtil;
 import com.springdemo.pulsegym.Model.User;
 import jakarta.validation.Valid;
-import com.springdemo.pulsegym.DTO.LoginRequest;
+import com.springdemo.pulsegym.DTO.AuthRequest;
 
 
 @RestController
@@ -31,7 +31,7 @@ public class AuthController {
     private JwtUtil jwt;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request, BindingResult bindingResult) {
+    public ResponseEntity<?> login(@Valid @RequestBody AuthRequest request, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()

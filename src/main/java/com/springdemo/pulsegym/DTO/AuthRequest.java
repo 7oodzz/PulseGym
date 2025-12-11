@@ -3,7 +3,7 @@ package com.springdemo.pulsegym.DTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class LoginRequest {
+public class AuthRequest {
 
     @NotBlank(message = "Username cannot be empty")
     private String username;

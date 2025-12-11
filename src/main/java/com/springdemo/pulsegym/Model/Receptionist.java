@@ -1,6 +1,5 @@
 package com.springdemo.pulsegym.Model;
 
-import com.springdemo.pulsegym.DTO.ReceptionistRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
