@@ -19,12 +19,15 @@ import com.springdemo.pulsegym.Security.JwtFilter;
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private JwtFilter jwtFilter;
+    @Bean
+    public JwtFilter jwtFilter() {
+        return new JwtFilter();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())  //a type of attack prevention
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
@@ -32,7 +35,7 @@ public class SecurityConfig {
                 .requestMatchers("/receptionist/**").hasRole("Receptionist")
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class );
+            .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class );
         return http.build();
     }
 
