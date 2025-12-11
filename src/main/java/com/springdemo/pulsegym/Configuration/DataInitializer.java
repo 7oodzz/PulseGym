@@ -18,10 +18,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if(adminRepo.count() == 0) {
-            Admin admin = new Admin();
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin123123"));
-            adminRepo.save(admin);
+            adminRepo.save(new Admin("admin", passwordEncoder.encode("admin123123")));
         }
     }
 

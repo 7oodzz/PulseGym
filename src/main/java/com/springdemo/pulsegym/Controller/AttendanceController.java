@@ -12,10 +12,10 @@ public class AttendanceController {
     @Autowired
     private AttendanceService attendanceService;
 
-    
     @PostMapping("/check-in/{memberId}")
     public ResponseEntity<String> checkIn(@PathVariable int memberId) {
         String result = attendanceService.checkInMember(memberId);
         return ResponseEntity.ok(result);
     }
+
 }
