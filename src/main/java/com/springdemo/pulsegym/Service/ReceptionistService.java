@@ -30,18 +30,6 @@ public class ReceptionistService {
         return receptionistRepo.findAll();
     }
 
-//    public Receptionist addReceptionist(ReceptionistRequest recepReq) {
-//        if (receptionistRepo.findBySsn(recepReq.getSsn()).isPresent()) {
-//            throw new IllegalStateException("Receptionist is already exist with this ssn " + recepReq.getSsn());
-//        }
-//        Receptionist rec = new Receptionist();
-//        rec.setUsername(recepReq.getUsername());
-//        rec.setPassword(encoder.encode(recepReq.getPassword()));
-//        rec.setName(recepReq.getName());
-//        rec.setSsn(recepReq.getSsn());
-//        return receptionistRepo.save(rec);
-//    }
-
     public Receptionist addReceptionist(ReceptionistRequest recepReq) {
 
         if (receptionistRepo.findBySsn(recepReq.getSsn()).isPresent()) {

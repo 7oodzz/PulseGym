@@ -17,10 +17,6 @@ public class AdminService {
     @Autowired
     private UserFactory userFactory;
 
-//    public Admin registerAdmin(Admin admin) {
-//        admin.setPassword(encoder.encode(admin.getPassword()));
-//        return adminRepo.save(admin);
-//    }
     public Admin registerAdmin(Admin admin) {
         Admin newAdmin = userFactory.createAdmin(
                 admin.getUsername(),
