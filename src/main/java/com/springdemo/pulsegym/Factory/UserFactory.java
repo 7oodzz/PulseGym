@@ -1,4 +1,5 @@
 package com.springdemo.pulsegym.Factory;
+import com.springdemo.pulsegym.DTO.AuthRequest;
 import com.springdemo.pulsegym.DTO.ReceptionistRequest;
 import com.springdemo.pulsegym.Model.Admin;
 import com.springdemo.pulsegym.Model.Member;
@@ -14,10 +15,10 @@ public class UserFactory {
         this.encoder = encoder;
     }
 
-    public Admin createAdmin(String username, String password) {
+    public Admin createAdmin(AuthRequest dto) {
         Admin admin = new Admin();
-        admin.setUsername(username);
-        admin.setPassword(encoder.encode(password));
+        admin.setUsername(dto.getUsername());
+        admin.setPassword(encoder.encode(dto.getPassword()));
         return admin;
     }
 

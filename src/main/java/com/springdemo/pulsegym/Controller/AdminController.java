@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.springdemo.pulsegym.DTO.AuthRequest;
 
 
 @RestController
@@ -25,7 +26,7 @@ public class AdminController {
     private AdminService adminService;
 
     @PostMapping("/createAdmin")
-    public Object createAdmin(@Valid @RequestBody Admin admin,BindingResult bindingResult ) {
+    public Object createAdmin(@Valid @RequestBody AuthRequest admin,BindingResult bindingResult ) {
          if(bindingResult.hasErrors()){
             List<String> errors = bindingResult.getFieldErrors()
                 .stream()

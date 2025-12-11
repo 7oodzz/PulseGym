@@ -1,12 +1,11 @@
 package com.springdemo.pulsegym.Service;
 
+import com.springdemo.pulsegym.DTO.AuthRequest;
 import com.springdemo.pulsegym.Factory.UserFactory;
 import com.springdemo.pulsegym.Model.Admin;
 import com.springdemo.pulsegym.Repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -21,12 +20,14 @@ public class AdminService {
 //        admin.setPassword(encoder.encode(admin.getPassword()));
 //        return adminRepo.save(admin);
 //    }
-    public Admin registerAdmin(Admin admin) {
-        Admin newAdmin = userFactory.createAdmin(
-                admin.getUsername(),
-                admin.getPassword()
-        );
-        return adminRepo.save(newAdmin);
+    public Admin registerAdmin(AuthRequest req) {
+
+        if (adminRepo.findByUsername(req.getUsername()).isPresent()) {
+            throw new IllegalStateException("Admin already exists");
+        }
+
+        Admin admin = userFactory.createAdmin(req);
+        return adminRepo.save(admin);
     }
 
     public void deleteAdmin(Long id) {
