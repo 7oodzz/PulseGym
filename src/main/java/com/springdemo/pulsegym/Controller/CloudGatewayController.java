@@ -36,7 +36,7 @@ public class CloudGatewayController {
     }
 
     @DeleteMapping("/admin/{id}")
-    public Object deleteAdmin(@PathVariable Long id) {
+    public Object deleteAdmin(@PathVariable int id) {
         cloudService.logRequest("/admin/delete");
         adminService.deleteAdmin(id);
         cloudService.logResponse("/admin/delete");
