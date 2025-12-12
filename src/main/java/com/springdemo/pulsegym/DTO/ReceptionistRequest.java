@@ -1,9 +1,21 @@
 package com.springdemo.pulsegym.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class ReceptionistRequest {
+
+    @NotBlank(message = "Username cannot be empty")
     private String username;
+
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
+
     private String name;
+
+    @NotBlank(message = "SSN cannot be empty")
+    @Size(min = 14, max = 14, message = "SSN must be exactly 14 characters long")
     private String ssn;
 
     public String getUsername() {

@@ -24,7 +24,7 @@ public class SubscriptionBundle {
     private String description;
 
     @NotNull(message = "Length of subscription is required")
-    @Min(value = 0, message = "Length of subscription must be greater than zero")
+    @Min(value = 1, message = "Length of subscription must be greater than zero")
     private int durationInMonth;
 
 

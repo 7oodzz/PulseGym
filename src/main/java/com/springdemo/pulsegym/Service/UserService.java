@@ -19,11 +19,8 @@ public class UserService {
 
         User user = userRepo.findByUsername(username);
 
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
-        if (!encoder.matches(rawPassword, user.getPassword())) {
-            throw new RuntimeException("Wrong password");
+        if (user == null || !encoder.matches(rawPassword, user.getPassword())) {
+            throw new RuntimeException("Invalid username or password");
         }
 
         return user;

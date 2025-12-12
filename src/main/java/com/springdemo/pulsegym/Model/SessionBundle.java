@@ -1,7 +1,5 @@
 package com.springdemo.pulsegym.Model;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +24,7 @@ public class SessionBundle {
     @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters")
     private String longTermGaol;
 
-    @Min(1)
+    @Min(value=1, message="Sessions amount must be at least 1")
     private int sessionsAmount;
 
     public SessionBundle() {}

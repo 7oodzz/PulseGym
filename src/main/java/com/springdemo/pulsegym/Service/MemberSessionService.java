@@ -33,6 +33,9 @@ public class MemberSessionService {
         if (member.getHasSession()) {
             return "Member already has a session bundle assigned";
         }
+        if(!member.getHasSubscription()){
+            return "Member is not subscribed, cannot assign session bundle";
+        }
 
         MemberSession ms = new MemberSession(member, sessionBundle);
         ms.setBundle(sessionBundle);
