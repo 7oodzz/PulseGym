@@ -2,7 +2,7 @@ package com.springdemo.pulsegym.DTO;
 
 public class ReceptionistRequest {
     private String username;
-    private String Password;
+    private String password;
     private String name;
     private String ssn;
 
@@ -15,11 +15,11 @@ public class ReceptionistRequest {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getName() {
