@@ -5,6 +5,7 @@ import com.springdemo.pulsegym.Model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import java.util.UUID;
 
 @Component
 public class JwtUtil {
@@ -13,6 +14,7 @@ public class JwtUtil {
 
     public String generateToken(User user) {
         return Jwts.builder()
+                .setId(UUID.randomUUID().toString())
                 .setSubject(user.getUsername())
                 .claim("type", user.getClass().getSimpleName()) //type of user
                 .signWith(SignatureAlgorithm.HS256, key)

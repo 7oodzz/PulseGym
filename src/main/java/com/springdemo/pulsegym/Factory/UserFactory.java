@@ -24,8 +24,12 @@ public class UserFactory {
 
 
     public Receptionist createReceptionist(ReceptionistRequest receptionistRequest) {
-        return new Receptionist(receptionistRequest.getUsername(), receptionistRequest.getPassword(),
-                receptionistRequest.getName(), receptionistRequest.getSsn());
+        Receptionist recep = new Receptionist();
+        recep.setUsername(receptionistRequest.getUsername());
+        recep.setPassword(encoder.encode(receptionistRequest.getPassword()));
+        recep.setName(receptionistRequest.getName());
+        recep.setSsn(receptionistRequest.getSsn());
+        return recep;
     }
 
     public Member createMember(Member m) {

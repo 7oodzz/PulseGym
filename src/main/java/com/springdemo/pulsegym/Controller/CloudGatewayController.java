@@ -19,7 +19,7 @@ public class CloudGatewayController {
     @Autowired
     private ReceptionistService receptionistService;
 
-    @GetMapping("/members")
+    @GetMapping("/receptionist/members")
     public Object listMembers() {
         cloudService.logRequest("/members");
         var result = memberService.listMembers();
@@ -27,7 +27,7 @@ public class CloudGatewayController {
         return result;
     }
 
-    @GetMapping("/receptionists")
+    @GetMapping("/admin/receptionists")
     public Object listReceptionists() {
         cloudService.logRequest("/receptionists");
         var result = receptionistService.getReceptionists();

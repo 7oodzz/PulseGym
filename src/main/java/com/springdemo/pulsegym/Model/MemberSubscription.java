@@ -22,6 +22,10 @@ public class MemberSubscription {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
+    public int getId() {
+        return id;
+    }
+
     public void setExpDate(LocalDate expDate) {
         this.expDate = expDate;
     }

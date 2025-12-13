@@ -46,7 +46,7 @@ public class AuthController {
             
             return ResponseEntity.ok(Map.of("token", token));
 
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", e.getMessage()));
         }
     }

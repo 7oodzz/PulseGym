@@ -1,8 +1,8 @@
 package com.springdemo.pulsegym.Configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +31,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())  //a type of attack prevention
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/admin/subscriptionBundles/**").hasAnyRole("Admin", "Receptionist")
+                .requestMatchers(HttpMethod.GET, "/admin/sessionBundles/**").hasAnyRole("Admin", "Receptionist")
                 .requestMatchers("/admin/**").hasRole("Admin")
                 .requestMatchers("/receptionist/**").hasRole("Receptionist")
                 .anyRequest().authenticated()
