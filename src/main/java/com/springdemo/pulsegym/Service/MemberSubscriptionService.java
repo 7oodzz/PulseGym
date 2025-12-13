@@ -3,9 +3,7 @@ package com.springdemo.pulsegym.Service;
 import com.springdemo.pulsegym.Model.Member;
 import com.springdemo.pulsegym.Model.MemberSubscription;
 import com.springdemo.pulsegym.Model.SubscriptionBundle;
-import com.springdemo.pulsegym.Repository.MemberRepository;
-import com.springdemo.pulsegym.Repository.MemberSubscriptionRepo;
-import com.springdemo.pulsegym.Repository.SubscriptionRepository;
+import com.springdemo.pulsegym.Repository.*;
 import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,8 @@ public class MemberSubscriptionService {
     MemberRepository memberRepo;
     @Autowired
     SubscriptionRepository subscriptionRepo;
+    @Autowired
+    MemberSessionRepository sessionRepository;
 
     public Object addSubscriptionToMember(int subId, int memberId) {
         
@@ -31,7 +31,7 @@ public class MemberSubscriptionService {
         SubscriptionBundle subscriptionBundle = subscriptionRepo.findById(subId)
                 .orElseThrow(() -> new RuntimeException("Subscription not found"));
         if (member.getHasSubscription()) {
-            return "Member already has subscription";
+            throw(new RuntimeException("Member already has subscription!"));
         } else {
             MemberSubscription memberSubObj = new MemberSubscription(member, subscriptionBundle, LocalDate.now(),
                     LocalDate.now().plusMonths(subscriptionBundle.getDurationInMonth()));
@@ -53,6 +53,11 @@ public class MemberSubscriptionService {
             return "subscription already removed";
         }
 
+        if(member.getHasSession()) {
+            member.setHasSession(false);
+            sessionRepository.removeByMember(member);
+        }
+
         member.setHasSubscription(false);
         memberRepo.save(member);
         memberSubscriptionRepo.delete(memberSubscription);
@@ -64,24 +69,26 @@ public class MemberSubscriptionService {
         return memberSubscriptionRepo.findAll();
     }
 
-    @Scheduled(fixedRate = 60000)
+
     @Transactional
+    @Scheduled(fixedRate = 60000) //cron = "0 0 0 * * ?" to make it update kol youm
     public void checkExpiryDates() {
-
-        List<MemberSubscription> subscriptions = memberSubscriptionRepo.findAll();
         LocalDate today = LocalDate.now();
+        List<MemberSubscription> allSubscriptions = memberSubscriptionRepo.findAll();
 
-        for(MemberSubscription sub : subscriptions) {
-            if(sub.getExpDate().isBefore(today)) {
+        for (MemberSubscription sub : allSubscriptions) {
+            if (sub.getExpDate() != null && sub.getExpDate().isBefore(today)) {
+
                 Member member = sub.getMember();
+
                 if (member != null) {
                     member.setHasSubscription(false);
                     memberRepo.save(member);
                 }
-            }
-            memberSubscriptionRepo.delete(sub);
-        }
 
+                memberSubscriptionRepo.delete(sub);
+            }
+        }
     }
 
 
