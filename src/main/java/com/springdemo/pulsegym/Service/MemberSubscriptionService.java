@@ -6,7 +6,10 @@ import com.springdemo.pulsegym.Model.SubscriptionBundle;
 import com.springdemo.pulsegym.Repository.MemberRepository;
 import com.springdemo.pulsegym.Repository.MemberSubscriptionRepo;
 import com.springdemo.pulsegym.Repository.SubscriptionRepository;
+import jakarta.transaction.Transactional;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -60,5 +63,26 @@ public class MemberSubscriptionService {
     public List<MemberSubscription> listMemberSubscriptions() {
         return memberSubscriptionRepo.findAll();
     }
+
+    @Scheduled(fixedRate = 60000)
+    @Transactional
+    public void checkExpiryDates() {
+
+        List<MemberSubscription> subscriptions = memberSubscriptionRepo.findAll();
+        LocalDate today = LocalDate.now();
+
+        for(MemberSubscription sub : subscriptions) {
+            if(sub.getExpDate().isBefore(today)) {
+                Member member = sub.getMember();
+                if (member != null) {
+                    member.setHasSubscription(false);
+                    memberRepo.save(member);
+                }
+            }
+            memberSubscriptionRepo.delete(sub);
+        }
+
+    }
+
 
 }
