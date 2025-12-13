@@ -29,7 +29,7 @@ public class MemberSessionController {
     MemberSessionService memberSessionService;
 
     @PostMapping("/addMemberSession")
-    public Object addSubscriptionToMember(@Valid @RequestBody MemberIdRequest request, BindingResult bindingResult){
+    public Object addSessionToMember(@Valid @RequestBody MemberIdRequest request, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getFieldErrors()
                     .stream()

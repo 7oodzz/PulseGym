@@ -6,6 +6,7 @@ import com.springdemo.pulsegym.Model.SessionBundle;
 import com.springdemo.pulsegym.Repository.MemberRepository;
 import com.springdemo.pulsegym.Repository.MemberSessionRepository;
 import com.springdemo.pulsegym.Repository.SessionRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -31,12 +32,13 @@ public class MemberSessionService {
                 .orElseThrow(() -> new RuntimeException("Session bundle not found"));
 
         if (member.getHasSession()) {
-            return "Member already has a session bundle assigned";
+            throw new RuntimeException( "Member already has a session bundle assigned");
+        }
+        if(!member.getHasSubscription()){
+            throw new RuntimeException( "Member is not subscribed, cannot assign session bundle");
         }
 
         MemberSession ms = new MemberSession(member, sessionBundle);
-        ms.setBundle(sessionBundle);
-        ms.setMember(member);
         member.setHasSession(true);
         memberRepo.save(member);
         return memberSessionRepo.save(ms);

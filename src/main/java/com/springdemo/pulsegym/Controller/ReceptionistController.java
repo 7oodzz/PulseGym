@@ -50,16 +50,10 @@ public class ReceptionistController {
         return receptionistService.updateReceptionist(ssn, receptionist);
     }
 
-    @DeleteMapping("/deleteRecep/{ssn}")
-    public Object deleteReceptionist(@Valid @PathVariable("ssn") String ssn, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors()
-                    .stream()
-                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                    .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-        }
-        receptionistService.deleteReceptionist(ssn);
-        return ResponseEntity.ok("Receptionist Deleted successfully");
-    }
+     @DeleteMapping("/deleteRecep/{ssn}")
+     public Object deleteReceptionist( @PathVariable("ssn") String ssn) {
+         receptionistService.deleteReceptionist(ssn);
+         return ResponseEntity.ok("Receptionist Deleted successfully");
+     }
+
 }
