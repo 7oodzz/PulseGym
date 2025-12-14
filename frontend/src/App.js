@@ -598,18 +598,30 @@ const ReceptionistDashboard = ({ token, onLogout, showToast }) => {
     try {
       const res = await authFetch(`/receptionist/check-in/${checkInId}`, { method: 'POST' });
       const msg = await res.text();
-      showToast(msg);
       
-      const member = members.find(m => m.id === parseInt(checkInId));
-      const newRecord = {
-        memberId: checkInId,
-        memberName: member ? member.name : 'Unknown',
-        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        status: msg
-      };
-      setRecentAttendances([newRecord, ...recentAttendances]);
-      setCheckInId('');
-    } catch (err) { showToast(err.message, 'error'); }
+      // FIX: Check if the message contains "successful" or "Error/not subscribed"
+      // Based on your backend strings: 
+      // - "Member not subscribed!"
+      // - "Check-in successful for member: ..."
+      
+      const isSuccess = msg.toLowerCase().includes('successful');
+      
+      showToast(msg, isSuccess ? 'success' : 'error');
+      
+      if (isSuccess) {
+          const member = members.find(m => m.id === parseInt(checkInId));
+          const newRecord = {
+            memberId: checkInId,
+            memberName: member ? member.name : 'Unknown',
+            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+            status: msg
+          };
+          setRecentAttendances([newRecord, ...recentAttendances]);
+          setCheckInId('');
+      }
+    } catch (err) { 
+        showToast(err.message, 'error'); 
+    }
   };
 
   const handleTerminateSub = async (subId) => {
