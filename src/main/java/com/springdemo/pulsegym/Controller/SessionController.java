@@ -3,6 +3,7 @@ package com.springdemo.pulsegym.Controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.springdemo.pulsegym.Util.ErrorMessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,21 +30,12 @@ public class SessionController {
     @Autowired
     private SessionBundleService sessionService;
 
-    private Object validationErrors(BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors().stream().map(error -> error.getField() + ": " + error.getDefaultMessage()).collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-        }
-        return null;
-    }
-
     @PostMapping("/createSessionBundle")
-    public Object createSessionBundle(@Valid @RequestBody SessionBundle session,BindingResult bindingResult) {
-         Object error = validationErrors(bindingResult);
-          if(error != null) {
-            return error;
+    public Object createSessionBundle(@Valid @RequestBody SessionBundle session, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
-         return sessionService.create(session);
+        return sessionService.create(session);
     }
 
     @GetMapping
@@ -53,21 +45,20 @@ public class SessionController {
 
     @PutMapping("/updateSessionBundle/{id}")
     public Object updateSessionBundle(@PathVariable int id, @Valid @RequestBody SessionBundle session, BindingResult bindingResult) {
-        Object error = validationErrors(bindingResult);
-        if(error != null) {
-            return error;
+        if (bindingResult.hasErrors()) {
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
         return sessionService.update(id, session);
     }
 
 
-     @DeleteMapping("/deleteSessionBundle/{id}")
+    @DeleteMapping("/deleteSessionBundle/{id}")
     public Object deleteSessionBundle(@PathVariable int id) {
-        if(sessionService.exists(id)) {
+        if (sessionService.exists(id)) {
             sessionService.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("{id} deleted successfully");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{id} not found");
     }
-    
+
 }

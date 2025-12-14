@@ -20,7 +20,7 @@ public class MemberService {
         return memberRepo.save(newMember);
     }
 
-    public Member updateMember(Member newMember){
+    public Member updateMember(Member newMember) {
         Member member = memberRepo.findById(newMember.getId())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         member.setId(newMember.getId());
@@ -31,16 +31,17 @@ public class MemberService {
         return memberRepo.save(member);
     }
 
-    public boolean isSubscribed(Member member){
+    public boolean isSubscribed(Member member) {
         member = memberRepo.findById(member.getId())
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         return member.getHasSubscription();
     }
-    public boolean hasSession(Member member){
+
+    public boolean hasSession(Member member) {
         return member.getHasSession();
     }
 
-    public List<Member> listMembers(){
+    public List<Member> listMembers() {
         return memberRepo.findAll();
     }
 

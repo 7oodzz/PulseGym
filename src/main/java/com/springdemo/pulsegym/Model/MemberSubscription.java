@@ -1,6 +1,7 @@
 package com.springdemo.pulsegym.Model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -42,11 +43,21 @@ public class MemberSubscription {
         return startDate;
     }
 
-    public Member getMember() { return member; }
-    public void setMember(Member member) { this.member = member; }
+    public Member getMember() {
+        return member;
+    }
 
-    public SubscriptionBundle getBundle() { return bundle; }
-    public void setBundle(SubscriptionBundle bundle) { this.bundle = bundle; }
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public SubscriptionBundle getBundle() {
+        return bundle;
+    }
+
+    public void setBundle(SubscriptionBundle bundle) {
+        this.bundle = bundle;
+    }
 
     public MemberSubscription(Member member, SubscriptionBundle bundle, LocalDate startDate, LocalDate expDate) {
         this.member = member;

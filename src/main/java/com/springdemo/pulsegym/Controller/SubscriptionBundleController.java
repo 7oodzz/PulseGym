@@ -2,6 +2,7 @@ package com.springdemo.pulsegym.Controller;
 
 import com.springdemo.pulsegym.Model.SubscriptionBundle;
 import com.springdemo.pulsegym.Service.SubscriptionBundleService;
+import com.springdemo.pulsegym.Util.ErrorMessageUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,28 +20,18 @@ public class SubscriptionBundleController {
     @Autowired
     private SubscriptionBundleService service;
 
-    private Object validationErrors(BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors().stream().map(error -> error.getField() + ": " + error.getDefaultMessage()).collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-        }
-        return null;
-    }
-
     @PostMapping("/createSubBundle")
     public Object createSubscriptionBundle(@Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
-        Object error = validationErrors(bindingResult);
-        if(error != null) {
-            return error;
+        if (bindingResult.hasErrors()) {
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
         return service.create(sub);
     }
 
     @PutMapping("/updateSubBundle/{id}")
     public Object updateSubscriptionBundle(@PathVariable int id, @Valid @RequestBody SubscriptionBundle sub, BindingResult bindingResult) {
-        Object error = validationErrors(bindingResult);
-        if(error != null) {
-            return error;
+        if (bindingResult.hasErrors()) {
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
         return service.update(id, sub);
     }

@@ -3,6 +3,7 @@ package com.springdemo.pulsegym.Controller;
 import com.springdemo.pulsegym.DTO.MemberIdRequest;
 import com.springdemo.pulsegym.Model.MemberSubscription;
 import com.springdemo.pulsegym.Service.MemberSubscriptionService;
+import com.springdemo.pulsegym.Util.ErrorMessageUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,28 +21,25 @@ public class MemberSubscribtionController {
     MemberSubscriptionService memberSubscriptionService;
 
     @PostMapping("/addMemberSubscription")
-    public Object addSubscriptionToMember(@Valid @RequestBody MemberIdRequest request, BindingResult bindingResult){
+    public Object addSubscriptionToMember(@Valid @RequestBody MemberIdRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            // Return all validation errors as a list of messages
-            List<String> errors = bindingResult.getFieldErrors()
-                    .stream()
-                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                    .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+            return ErrorMessageUtil.errorMessage(bindingResult);
 
         }
 
-        return memberSubscriptionService.addSubscriptionToMember(request.getItemId(), request.getMemberId()) ;
+        return memberSubscriptionService.addSubscriptionToMember(request.getItemId(), request.getMemberId());
 
     }
+
     @GetMapping("/listMemberSubscriptions")
-    public List<MemberSubscription> list(){
+    public List<MemberSubscription> list() {
         return memberSubscriptionService.listMemberSubscriptions();
     }
+
     @DeleteMapping("removeMemberSubscribtion/{memberSubId}")
-    public ResponseEntity<String> removeMemberSubscription(@PathVariable int memberSubId){
+    public ResponseEntity<String> removeMemberSubscription(@PathVariable int memberSubId) {
         memberSubscriptionService.removeSubFromMember(memberSubId);
-        return ResponseEntity.ok("member's subscription with id: " + memberSubId + "deleted succefully" );
+        return ResponseEntity.ok("member's subscription with id: " + memberSubId + "deleted succefully");
     }
 
 

@@ -6,18 +6,19 @@ import com.springdemo.pulsegym.Model.Admin;
 import com.springdemo.pulsegym.Repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class AdminService {
-    
+
     @Autowired
     private AdminRepository adminRepo;
     @Autowired
     private UserFactory userFactory;
 
     public Admin registerAdmin(AuthRequest adminReq) {
-       if (adminRepo.findByUsername(adminReq.getUsername()).isPresent()) {
+        if (adminRepo.findByUsername(adminReq.getUsername()).isPresent()) {
             throw new IllegalStateException("admin already exists");
         }
 

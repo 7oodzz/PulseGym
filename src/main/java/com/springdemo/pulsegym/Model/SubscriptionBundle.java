@@ -28,7 +28,6 @@ public class SubscriptionBundle {
     private int durationInMonth;
 
 
-
     public void setId(int id) {
         this.id = id;
     }
@@ -47,7 +46,7 @@ public class SubscriptionBundle {
 
 
     public void setDurationInMonth(int durationInMonth) {
-        this.durationInMonth = durationInMonth ;
+        this.durationInMonth = durationInMonth;
     }
 
     public int getId() {
@@ -67,7 +66,7 @@ public class SubscriptionBundle {
     }
 
     public int getDurationInMonth() {
-        return  durationInMonth;
+        return durationInMonth;
     }
 
     @Override

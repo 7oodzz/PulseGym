@@ -2,9 +2,12 @@ package com.springdemo.pulsegym.Controller;
 
 import com.springdemo.pulsegym.Model.Admin;
 import com.springdemo.pulsegym.Service.AdminService;
+import com.springdemo.pulsegym.Util.ErrorMessageUtil;
 import jakarta.validation.Valid;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,20 +30,15 @@ public class AdminController {
     private AdminService adminService;
 
     @PostMapping("/createAdmin")
-    public Object createAdmin(@Valid @RequestBody AuthRequest admin,BindingResult bindingResult ) {
-         if(bindingResult.hasErrors()){
-            List<String> errors = bindingResult.getFieldErrors()
-                .stream()
-                .map(error->error.getField() + ": " + error.getDefaultMessage())
-                .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-        }
-        else
+    public Object createAdmin(@Valid @RequestBody AuthRequest admin, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ErrorMessageUtil.errorMessage(bindingResult);
+        } else
             return adminService.registerAdmin(admin);
     }
 
     @GetMapping("/listAdmins")
-    public List<Admin> listAdmins(){ 
+    public List<Admin> listAdmins() {
         return adminService.getAllAdmins();
     }
 
@@ -49,5 +47,5 @@ public class AdminController {
         adminService.deleteAdmin(id);
         return ResponseEntity.ok("Admin deleted successfully");
     }
-    
+
 }

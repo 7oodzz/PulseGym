@@ -7,15 +7,15 @@ import com.springdemo.pulsegym.Model.User;
 import com.springdemo.pulsegym.Repository.UserRepository;
 
 @Service
-public class UserService {  
-    
+public class UserService {
+
     @Autowired
     private UserRepository userRepo;
     @Autowired
     private PasswordEncoder encoder;
 
 
-    public User login(String username, String rawPassword){ 
+    public User login(String username, String rawPassword) {
 
         User user = userRepo.findByUsername(username);
 

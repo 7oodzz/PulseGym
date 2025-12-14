@@ -30,11 +30,11 @@ public class AttendanceService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found!"));
 
-        if(!member.getHasSubscription()) {
+        if (!member.getHasSubscription()) {
             return "Member not subscribed!";
         }
 
-        if(member.getHasSession()) {
+        if (member.getHasSession()) {
             // Updated logic based on user input
             Optional<MemberSession> sessionBox = memberSessionRepository.findByMemberAndSessionsLeftGreaterThan(member, 0);
 

@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
 
     @Id
@@ -28,7 +28,7 @@ public abstract class User {
 
     }
 
-    public int getId () {
+    public int getId() {
         return this.id;
     }
 

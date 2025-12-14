@@ -2,6 +2,7 @@ package com.springdemo.pulsegym.Controller;
 
 import com.springdemo.pulsegym.Model.Member;
 import com.springdemo.pulsegym.Service.MemberService;
+import com.springdemo.pulsegym.Util.ErrorMessageUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,35 +20,27 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping("/addMember")
-    public Object addMember(@Valid @RequestBody Member member, BindingResult bindingResult){
-       if(bindingResult.hasErrors()) {
-           List<String> errors = bindingResult.getFieldErrors()
-                   .stream()
-                   .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                   .collect(Collectors.toList());
-           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-       }
-       return memberService.addMember(member);
+    public Object addMember(@Valid @RequestBody Member member, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ErrorMessageUtil.errorMessage(bindingResult);
+        }
+        return memberService.addMember(member);
 
     }
 
     @PutMapping("/addMember")
-    public Object updateMember(@Valid @RequestBody Member member, BindingResult bindingResult){
-        if(bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors()
-                    .stream()
-                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                    .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    public Object updateMember(@Valid @RequestBody Member member, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
         return memberService.updateMember(member);
 
     }
+
     @GetMapping("/listMembers")
-    public List<Member> listmembers(){
+    public List<Member> listmembers() {
         return memberService.listMembers();
     }
-
 
 
 }

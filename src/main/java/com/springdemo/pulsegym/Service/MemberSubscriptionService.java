@@ -24,13 +24,13 @@ public class MemberSubscriptionService {
     MemberSessionRepository sessionRepository;
 
     public Object addSubscriptionToMember(int subId, int memberId) {
-        
+
         Member member = memberRepo.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found"));
         SubscriptionBundle subscriptionBundle = subscriptionRepo.findById(subId)
                 .orElseThrow(() -> new RuntimeException("Subscription not found"));
         if (member.getHasSubscription()) {
-            throw(new RuntimeException("Member already has subscription!"));
+            throw (new RuntimeException("Member already has subscription!"));
         } else {
             MemberSubscription memberSubObj = new MemberSubscription(member, subscriptionBundle, LocalDate.now(),
                     LocalDate.now().plusMonths(subscriptionBundle.getDurationInMonth()));
@@ -52,7 +52,7 @@ public class MemberSubscriptionService {
             return "subscription already removed";
         }
 
-        if(member.getHasSession()) {
+        if (member.getHasSession()) {
             member.setHasSession(false);
             sessionRepository.removeByMember(member);
         }

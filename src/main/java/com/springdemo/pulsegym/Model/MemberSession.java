@@ -18,7 +18,8 @@ public class MemberSession {
 
     private int sessionsLeft;
 
-    public MemberSession () {}
+    public MemberSession() {
+    }
 
     public MemberSession(Member member, SessionBundle bundle) {
         this.member = member;

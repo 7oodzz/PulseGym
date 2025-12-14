@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.springdemo.pulsegym.Util.JwtUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import java.util.List;
 
 @Component
@@ -19,25 +20,25 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-         HttpServletResponse response,
-          FilterChain filterChain) throws ServletException, java.io.IOException { 
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, java.io.IOException {
 
-            String header = request.getHeader("Authorization");
-            if (header != null && header.startsWith("Bearer ")) { 
+        String header = request.getHeader("Authorization");
+        if (header != null && header.startsWith("Bearer ")) {
 
-                String token = header.substring(7);
+            String token = header.substring(7);
 
-                if (jwtUtil.validate(token)) {
+            if (jwtUtil.validate(token)) {
 
-                    String username = jwtUtil.extractUsername(token);
-                    String type= jwtUtil.extractType(token);
+                String username = jwtUtil.extractUsername(token);
+                String type = jwtUtil.extractType(token);
 
-                    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + type.trim());
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + type.trim());
 
-                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null, List.of(authority));
-                    SecurityContextHolder.getContext().setAuthentication(auth); 
-                }
-            } 
-            filterChain.doFilter(request, response);
-    } 
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null, List.of(authority));
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        }
+        filterChain.doFilter(request, response);
+    }
 }

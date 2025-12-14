@@ -3,6 +3,7 @@ package com.springdemo.pulsegym.Controller;
 import com.springdemo.pulsegym.DTO.ReceptionistRequest;
 import com.springdemo.pulsegym.Model.Receptionist;
 import com.springdemo.pulsegym.Service.ReceptionistService;
+import com.springdemo.pulsegym.Util.ErrorMessageUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,31 +30,24 @@ public class ReceptionistController {
     @PostMapping("/addRecep")
     public Object addReceptionist(@Valid @RequestBody ReceptionistRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors()
-                    .stream()
-                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                    .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
         return receptionistService.addReceptionist(request);
     }
 
     @PutMapping("/updateRecep/{ssn}")
-    public Object updateReceptionist(@Valid @PathVariable("ssn") String ssn, @RequestBody ReceptionistRequest receptionist, BindingResult bindingResult) {
+    public Object updateReceptionist(@Valid @PathVariable("ssn") String ssn,
+                                     @Valid @RequestBody ReceptionistRequest receptionist, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors()
-                    .stream()
-                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                    .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
         return receptionistService.updateReceptionist(ssn, receptionist);
     }
 
-     @DeleteMapping("/deleteRecep/{ssn}")
-     public Object deleteReceptionist( @PathVariable("ssn") String ssn) {
-         receptionistService.deleteReceptionist(ssn);
-         return ResponseEntity.ok("Receptionist Deleted successfully");
-     }
+    @DeleteMapping("/deleteRecep/{ssn}")
+    public Object deleteReceptionist(@PathVariable("ssn") String ssn) {
+        receptionistService.deleteReceptionist(ssn);
+        return ResponseEntity.ok("Receptionist Deleted successfully");
+    }
 
 }

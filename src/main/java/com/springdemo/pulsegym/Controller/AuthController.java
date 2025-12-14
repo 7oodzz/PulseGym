@@ -1,5 +1,6 @@
 package com.springdemo.pulsegym.Controller;
 
+import com.springdemo.pulsegym.Util.ErrorMessageUtil;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +35,12 @@ public class AuthController {
     public ResponseEntity<?> login(@Valid @RequestBody AuthRequest request, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult.getFieldErrors()
-                    .stream()
-                    .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                    .collect(Collectors.toList());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+            return ErrorMessageUtil.errorMessage(bindingResult);
         }
         try {
             User user = userService.login(request.getUsername(), request.getPassword());
             String token = jwt.generateToken(user);
-            
+
             return ResponseEntity.ok(Map.of("token", token));
 
         } catch (RuntimeException e) {

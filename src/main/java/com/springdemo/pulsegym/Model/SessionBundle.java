@@ -9,7 +9,6 @@ import jakarta.validation.constraints.Size;
 import jakarta.persistence.Id;
 
 
-
 @Entity
 public class SessionBundle {
     @Id
@@ -24,10 +23,11 @@ public class SessionBundle {
     @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters")
     private String longTermGaol;
 
-    @Min(value=1, message="Sessions amount must be at least 1")
+    @Min(value = 1, message = "Sessions amount must be at least 1")
     private int sessionsAmount;
 
-    public SessionBundle() {}
+    public SessionBundle() {
+    }
 
     public SessionBundle(String title, String longTermGaol, int sessionsAmount) {
         this.title = title;
@@ -62,7 +62,6 @@ public class SessionBundle {
     public void setSessionsAmount(int sessionsAmount) {
         this.sessionsAmount = sessionsAmount;
     }
-
 
 
 }

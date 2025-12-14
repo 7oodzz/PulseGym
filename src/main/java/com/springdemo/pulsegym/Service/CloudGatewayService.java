@@ -17,7 +17,7 @@ public class CloudGatewayService {
 
     public void validateApiKey(String key) {
         if (key == null || !key.equals(API_KEY)) {
-            throw new IllegalArgumentException("❌ Invalid API Key. Access denied by Cloud Gateway.");
+            throw new IllegalArgumentException("Invalid API Key. Access denied by Cloud Gateway.");
         }
     }
 
