@@ -1,9 +1,6 @@
 package com.springdemo.pulsegym.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
@@ -11,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 @Table(name = "members")
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Pattern(
             regexp = "^01[0-2,5]{1}[0-9]{8}$",
